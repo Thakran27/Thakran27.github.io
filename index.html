@@ -90,7 +90,7 @@
     @keyframes orbit-spin{to{transform:rotate(360deg)}}
     .hero-content{position:relative;z-index:2;color:white;max-width:860px;padding:88px 0 110px;animation:hero-in .7s cubic-bezier(.2,.7,.2,1) both}
     .eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;font-weight:600;color:#c4b8ff}
-    .hero h1{font-family:var(--display);font-size:clamp(2.9rem,5.9vw,5rem);line-height:1.02;letter-spacing:-.02em;margin:20px 0 24px;font-weight:800}
+    .hero h1{font-family:var(--display);font-size:clamp(2.4rem,4.9vw,4rem);line-height:1.16;letter-spacing:0;margin:20px 0 24px;font-weight:700;max-width:17ch;text-wrap:balance}
     .hero h1 .grad-text{background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text}
     .hero .lead{font-size:clamp(1.05rem,1.7vw,1.22rem);line-height:1.65;max-width:700px;color:#ded8f5}
     .typed-wrap{font-family:var(--label);margin:16px 0 0;font-size:clamp(.98rem,1.5vw,1.14rem);color:#b3a7ec;font-weight:500;min-height:1.7em}
@@ -110,7 +110,7 @@
     /* ---------- stats ---------- */
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:-40px;position:relative;z-index:3;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-md)}
     .stat{background:var(--surface);padding:24px 26px}
-    .stat strong{display:block;font-family:var(--display);font-size:1.8rem;line-height:1.1;margin-bottom:7px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat strong{display:block;font-family:var(--display);font-size:1.75rem;line-height:1.15;margin-bottom:7px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
     .stat > span{display:block;color:var(--muted);font-size:.9rem;line-height:1.45}
 
     /* ---------- ticker ---------- */
@@ -124,9 +124,9 @@
     main{overflow:hidden}
     section{padding:92px 0;scroll-margin-top:68px}
     .section-head{max-width:780px;margin-bottom:44px;position:relative}
-    .sec-num{display:block;font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,6vw,4.6rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(95,69,232,.28);letter-spacing:.02em;margin-bottom:-14px;user-select:none}
+    .sec-num{display:block;font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,5vw,3.8rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(95,69,232,.28);letter-spacing:.02em;margin-bottom:8px;user-select:none}
     .dark .sec-num{-webkit-text-stroke:1.5px rgba(255,255,255,.22)}
-    .section-title{font-family:var(--display);font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;letter-spacing:-.015em;margin:10px 0 15px;font-weight:800}
+    .section-title{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.65rem);line-height:1.22;letter-spacing:0;margin:10px 0 15px;font-weight:700;text-wrap:balance}
     .section-title:after{content:"";display:block;width:84px;height:5px;border-radius:3px;margin-top:18px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.7,.2,1) .25s}
     .section-head.is-visible .section-title:after{transform:scaleX(1)}
     .section-head p,.muted{color:var(--muted)}
@@ -232,7 +232,7 @@
     @keyframes wing-sway{from{transform:rotate(-1.4deg)}to{transform:rotate(1.4deg)}}
 
     /* ---------- quote ---------- */
-    .quote{font-family:var(--display);font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.25;margin-bottom:14px;font-weight:800;background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .quote{font-family:var(--display);font-size:clamp(1.7rem,3.3vw,2.5rem);line-height:1.32;margin-bottom:14px;font-weight:700;background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text;color:transparent}
 
     /* ---------- contact ---------- */
     .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
@@ -282,13 +282,13 @@
     @media(max-width:520px){
       .wrap{width:min(100% - 30px,1120px)}
       body{font-size:.98rem}
-      .hero h1{font-size:2.6rem}
+      .hero h1{font-size:2.1rem}
       .hero .lead{font-size:1.02rem}
       .stats{grid-template-columns:1fr;margin-top:-28px}
       .stat{padding:20px 22px}
       section{padding:68px 0}
-      .section-title{font-size:1.9rem}
-      .sec-num{font-size:3rem}
+      .section-title{font-size:1.6rem}
+      .sec-num{font-size:2.5rem}
       .publication{padding:48px 18px 18px}
       .publication:before{left:18px;top:17px}
       .publication a{right:18px;top:15px}
@@ -339,7 +339,7 @@
     </svg>
     <div class="wrap hero-content">
       <div class="eyebrow">Semiconductor Physics · Photovoltaics · Optoelectronics</div>
-      <h1>Turning light into energy,<br><span class="grad-text">one interface at a time.</span></h1>
+      <h1>Turning light into energy, <span class="grad-text">one interface at a time.</span></h1>
       <p class="lead">I’m <b>Dr. Anjali Thakran</b> — a postdoctoral researcher developing perovskite solar cells, tandem photovoltaics, and scalable fabrication strategies for next-generation clean energy.</p>
       <p class="typed-wrap">Specializing in <span class="typed"></span><span class="caret" aria-hidden="true"></span></p>
       <div class="cta-row">
