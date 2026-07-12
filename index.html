@@ -12,7 +12,7 @@
   <title>Dr. Anjali Thakran | Semiconductor & Photovoltaics Researcher</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,7 +43,7 @@
       --line:#e6e2f4;
       --grad:linear-gradient(92deg,#7c63ff,#ff6a3d);
       --shadow-sm:0 8px 24px rgba(35,22,90,.09);--shadow-md:0 18px 48px rgba(35,22,90,.13);
-      --display:"Syne",Verdana,sans-serif;--sans:"Manrope",Arial,sans-serif;--label:"Space Grotesk","Manrope",monospace;
+      --display:"Plus Jakarta Sans",Arial,sans-serif;--sans:"Manrope",Arial,sans-serif;--label:"Space Grotesk","Manrope",monospace;
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -64,7 +64,7 @@
     /* ---------- navigation ---------- */
     .nav{position:sticky;top:0;z-index:20;background:rgba(247,245,251,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(23,18,58,.08)}
     .nav-inner{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:28px}
-    .brand{font-family:var(--display);font-size:1.08rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+    .brand{font-family:var(--display);font-size:1.08rem;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
     .brand b{color:var(--violet)}
     .links{display:flex;gap:22px;align-items:center}
     .links a{position:relative;text-decoration:none;color:#3d3663;font-size:.88rem;font-weight:700}
@@ -74,7 +74,7 @@
     .menu{display:none;background:none;border:0;font-size:1.45rem;color:var(--ink);padding:7px;cursor:pointer}
 
     /* ---------- hero ---------- */
-    .hero{min-height:680px;display:grid;align-items:center;position:relative;overflow:hidden;
+    .hero{min-height:680px;display:grid;align-items:center;position:relative;overflow:hidden;cursor:crosshair;
       background:
         radial-gradient(720px 480px at 88% 8%,rgba(124,99,255,.4),transparent 62%),
         radial-gradient(640px 460px at 4% 96%,rgba(255,92,57,.28),transparent 60%),
@@ -88,9 +88,9 @@
     .hero-atom .orbit-2{animation-duration:38s;animation-direction:reverse}
     .hero-atom .orbit-3{animation-duration:52s}
     @keyframes orbit-spin{to{transform:rotate(360deg)}}
-    .hero-content{position:relative;z-index:2;color:white;max-width:860px;padding:88px 0 110px;animation:hero-in .7s cubic-bezier(.2,.7,.2,1) both}
+    .hero-content{position:relative;z-index:2;color:white;max-width:880px;padding:88px 0 120px;animation:hero-in .7s cubic-bezier(.2,.7,.2,1) both;cursor:auto}
     .eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;font-weight:600;color:#c4b8ff}
-    .hero h1{font-family:var(--display);font-size:clamp(2.4rem,4.9vw,4rem);line-height:1.16;letter-spacing:0;margin:20px 0 24px;font-weight:700;max-width:17ch;text-wrap:balance}
+    .hero h1{font-family:var(--display);font-size:clamp(2.5rem,5vw,4.15rem);line-height:1.12;letter-spacing:-.015em;margin:20px 0 24px;font-weight:800;max-width:18ch;text-wrap:balance}
     .hero h1 .grad-text{background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text}
     .hero .lead{font-size:clamp(1.05rem,1.7vw,1.22rem);line-height:1.65;max-width:700px;color:#ded8f5}
     .typed-wrap{font-family:var(--label);margin:16px 0 0;font-size:clamp(.98rem,1.5vw,1.14rem);color:#b3a7ec;font-weight:500;min-height:1.7em}
@@ -98,24 +98,30 @@
     .caret{display:inline-block;width:2px;height:1.05em;background:#ffb85c;margin-left:3px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
     @keyframes blink{50%{opacity:0}}
     .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 24px;border-radius:999px;text-decoration:none;font-size:.92rem;font-weight:700;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 24px;border-radius:999px;text-decoration:none;font-size:.92rem;font-weight:700;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;cursor:pointer}
     .btn:hover{transform:translateY(-2px)}
-    .btn-primary{position:relative;overflow:hidden;background:linear-gradient(92deg,#ff5c39,#ff8a3d);color:#fff;box-shadow:0 10px 26px rgba(255,92,57,.35)}
+    .btn-primary{position:relative;overflow:hidden;background:linear-gradient(92deg,#ff5c39,#ff8a3d);color:#fff;box-shadow:0 10px 26px rgba(255,92,57,.35);border:0}
     .btn-primary:hover{filter:brightness(1.06)}
     .btn-primary:after{content:"";position:absolute;top:0;left:-80%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .5s ease}
     .btn-primary:hover:after{left:135%}
     .btn-ghost{border:1px solid rgba(255,255,255,.45);color:white}
     .btn-ghost:hover{background:rgba(255,255,255,.08)}
+    .hero-hint{position:absolute;right:26px;bottom:22px;z-index:2;font-family:var(--label);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(196,184,255,.55);pointer-events:none}
+    .scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;color:#b3a7ec;font-family:var(--label);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;pointer-events:none}
+    .wheel{width:21px;height:33px;border:2px solid rgba(255,255,255,.35);border-radius:12px;position:relative}
+    .wheel:after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:#ffb85c;animation:wheel-drop 1.8s ease-in-out infinite}
+    @keyframes wheel-drop{0%{transform:translateY(0);opacity:1}70%{transform:translateY(11px);opacity:0}100%{transform:translateY(11px);opacity:0}}
 
     /* ---------- stats ---------- */
     .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:-40px;position:relative;z-index:3;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-md)}
     .stat{background:var(--surface);padding:24px 26px}
-    .stat strong{display:block;font-family:var(--display);font-size:1.75rem;line-height:1.15;margin-bottom:7px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .stat strong{display:block;font-family:var(--display);font-size:1.75rem;line-height:1.15;margin-bottom:7px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
     .stat > span{display:block;color:var(--muted);font-size:.9rem;line-height:1.45}
 
     /* ---------- ticker ---------- */
     .ticker{margin-top:64px;background:var(--ink);border-block:1px solid #2c2159;overflow:hidden;padding:13px 0}
     .ticker-track{display:flex;gap:0;width:max-content;animation:ticker-scroll 30s linear infinite}
+    .ticker:hover .ticker-track{animation-play-state:paused}
     .ticker span{font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:.8rem;font-weight:600;color:#cfc6f2;white-space:nowrap;padding:0 18px}
     .ticker i{font-style:normal;color:var(--coral)}
     @keyframes ticker-scroll{to{transform:translateX(-50%)}}
@@ -124,16 +130,16 @@
     main{overflow:hidden}
     section{padding:92px 0;scroll-margin-top:68px}
     .section-head{max-width:780px;margin-bottom:44px;position:relative}
-    .sec-num{display:block;font-family:var(--display);font-weight:700;font-size:clamp(2.8rem,5vw,3.8rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(95,69,232,.28);letter-spacing:.02em;margin-bottom:8px;user-select:none}
-    .dark .sec-num{-webkit-text-stroke:1.5px rgba(255,255,255,.22)}
-    .section-title{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.65rem);line-height:1.22;letter-spacing:0;margin:10px 0 15px;font-weight:700;text-wrap:balance}
+    .sec-num{display:block;font-family:var(--display);font-weight:800;font-size:clamp(2.7rem,4.8vw,3.6rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(95,69,232,.3);letter-spacing:.02em;margin-bottom:10px;user-select:none}
+    .dark .sec-num{-webkit-text-stroke:1.5px rgba(255,255,255,.24)}
+    .section-title{font-family:var(--display);font-size:clamp(1.9rem,3.6vw,2.9rem);line-height:1.16;letter-spacing:-.012em;margin:10px 0 15px;font-weight:800;text-wrap:balance}
     .section-title:after{content:"";display:block;width:84px;height:5px;border-radius:3px;margin-top:18px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.2,.7,.2,1) .25s}
     .section-head.is-visible .section-title:after{transform:scaleX(1)}
     .section-head p,.muted{color:var(--muted)}
     .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
     .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:27px;box-shadow:0 1px 1px rgba(35,22,90,.03);transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
     .card:hover{transform:translateY(-3px);border-color:#cfc4f5;box-shadow:var(--shadow-sm)}
-    .card h3{margin:0 0 10px;font-family:var(--display);font-size:1.12rem;line-height:1.35;font-weight:700}
+    .card h3{margin:0 0 10px;font-family:var(--display);font-size:1.1rem;line-height:1.35;font-weight:700}
     .tag{display:inline-block;background:var(--violet-soft);color:var(--violet-deep);border:1px solid #ddd3fb;border-radius:999px;padding:5px 12px;margin:4px 4px 4px 0;font-family:var(--label);font-size:.78rem;font-weight:600;transition:transform .15s ease,background .15s ease}
     .tag:hover{transform:translateY(-2px);background:#e6ddff}
     .tag-warm{background:var(--amber-soft);color:#9a6a00;border-color:#f4dfae}
@@ -142,7 +148,7 @@
       radial-gradient(560px 400px at 6% 92%,rgba(255,92,57,.2),transparent 60%),
       linear-gradient(135deg,#151036,#1d1547)}
     .dark .section-head p{color:#c9c2e8}
-    .small-title{font-family:var(--display);font-size:1.35rem;margin:52px 0 20px;font-weight:700}
+    .small-title{font-family:var(--display);font-size:1.3rem;margin:52px 0 20px;font-weight:800}
 
     /* ---------- journey timeline ---------- */
     .journey{position:relative;max-width:1000px;margin:8px auto 0;padding:14px 0 8px}
@@ -157,23 +163,26 @@
     .jitem.edu:before{border-color:var(--amber)}
     .jitem.now:before{background:var(--violet);animation:pulse-dot 2.2s infinite}
     @keyframes pulse-dot{0%{box-shadow:0 0 0 0 rgba(95,69,232,.4)}75%{box-shadow:0 0 0 13px rgba(95,69,232,0)}100%{box-shadow:0 0 0 0 rgba(95,69,232,0)}}
-    .jyear{position:absolute;top:22px;font-family:var(--display);font-weight:700;font-size:.98rem;color:var(--violet-deep);white-space:nowrap}
+    .jyear{position:absolute;top:22px;font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--violet-deep);white-space:nowrap}
     .jitem.left .jyear{left:calc(100% + 78px)}
     .jitem.right .jyear{right:calc(100% + 78px)}
     .jtag{display:inline-block;font-family:var(--label);font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:3px 11px;margin-bottom:9px}
     .jtag.t-edu{background:var(--amber-soft);color:#9a6a00;border:1px solid #f4dfae}
     .jtag.t-exp{background:var(--violet-soft);color:var(--violet-deep);border:1px solid #ddd3fb}
-    .jitem h3{margin:0 0 6px;font-family:var(--display);font-size:1.05rem;font-weight:700}
+    .jitem h3{margin:0 0 6px;font-family:var(--display);font-size:1.02rem;font-weight:700}
     .jitem p{margin:0 0 6px;font-size:.95rem}
     .jitem .muted{font-size:.88rem}
     .legend{display:flex;gap:10px;flex-wrap:wrap;margin:-8px 0 30px}
 
     /* ---------- research feature ---------- */
     .feature{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
-    .feature h3{font-family:var(--display);font-size:1.45rem;margin:0 0 12px;font-weight:700}
+    .feature h3{font-family:var(--display);font-size:1.4rem;margin:0 0 12px;font-weight:800}
     .device-figure{margin:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:22px 22px 14px}
     .device-figure svg{display:block;width:100%;height:auto}
-    .device-figure figcaption{color:#b8b0dd;font-size:.84rem;margin-top:10px;text-align:center}
+    .device-figure figcaption{color:#b8b0dd;font-size:.84rem;margin-top:10px;text-align:center;min-height:2.7em;transition:color .2s ease}
+    .device-figure figcaption.active{color:#ffd9a0}
+    .layer{cursor:pointer;transition:filter .2s ease}
+    .layer:hover{filter:brightness(1.3)}
     .ph-ray{stroke:#ff9a63;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:10 130;animation:ray-fall 2.8s linear infinite}
     .ph-ray.r2{animation-delay:.9s}
     .ph-ray.r3{animation-delay:1.8s}
@@ -186,12 +195,23 @@
     @keyframes h-down{0%{transform:translateY(0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateY(84px);opacity:0}}
 
     /* ---------- publications ---------- */
-    .publication-list{display:grid;gap:10px;counter-reset:publication}
-    .publication{counter-increment:publication;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:19px 64px 19px 58px;line-height:1.55;transition:transform .2s ease,border-color .2s ease}
-    .publication:hover{transform:translateX(5px);border-color:#cfc4f5}
-    .publication:before{content:counter(publication,decimal-leading-zero);position:absolute;left:20px;top:20px;font-family:var(--label);color:var(--violet);font-weight:600;font-size:.8rem;letter-spacing:.06em;transition:color .2s ease}
-    .publication:hover:before{color:var(--coral)}
-    .publication a{position:absolute;right:18px;top:18px;text-decoration:none;font-weight:700;font-size:.86rem}
+    .pub-filter{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+    .fbtn{font-family:var(--label);font-size:.8rem;font-weight:600;letter-spacing:.04em;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;transition:border-color .18s ease,background .18s ease,color .18s ease,transform .18s ease}
+    .fbtn:hover{border-color:#cfc4f5;color:var(--violet-deep);transform:translateY(-1px)}
+    .fbtn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+    .publication-list{display:grid;gap:10px}
+    .publication{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+    .publication:hover{transform:translateX(5px);border-color:#cfc4f5;box-shadow:var(--shadow-sm)}
+    .publication[data-kind="first"]{border-left:3px solid var(--violet)}
+    .pub-year{font-family:var(--label);font-weight:600;color:var(--violet);font-size:.88rem}
+    .publication h3{margin:0 0 4px;font-family:var(--sans);font-weight:700;font-size:.99rem;line-height:1.5}
+    .pub-meta{margin:0;color:var(--muted);font-size:.87rem}
+    .pub-badge{display:inline-block;background:var(--violet-soft);color:var(--violet-deep);border-radius:999px;padding:2px 9px;font-family:var(--label);font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-left:6px;vertical-align:1px}
+    .pub-link{font-family:var(--label);font-size:.78rem;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 15px;color:var(--violet-deep);transition:background .18s ease,border-color .18s ease,color .18s ease;white-space:nowrap}
+    .pub-link:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+    .pub-hidden{display:none}
+    .pop{animation:pub-pop .45s cubic-bezier(.2,.7,.2,1)}
+    @keyframes pub-pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
     /* ---------- highlighted skills ---------- */
     .skill-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -210,17 +230,18 @@
 
     /* ---------- awards ---------- */
     .award-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .award{background:var(--surface);padding:20px 22px;border-radius:12px;border:1px solid var(--line);border-left:3px solid var(--amber);transition:transform .2s ease,box-shadow .2s ease}
+    .award{display:flex;gap:14px;align-items:flex-start;background:var(--surface);padding:20px 22px;border-radius:12px;border:1px solid var(--line);transition:transform .2s ease,box-shadow .2s ease}
     .award:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-    .award b{color:var(--violet-deep);font-family:var(--display);font-size:.99rem;font-weight:700}
+    .award svg{flex:0 0 auto;margin-top:3px}
+    .award b{color:var(--violet-deep);font-family:var(--display);font-size:.97rem;font-weight:700}
 
     /* ---------- scientific photography ---------- */
-    .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    .photo-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-    .photo-card:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:var(--shadow-md)}
+    .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:900px}
+    .photo-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;will-change:transform}
+    .photo-card:hover{box-shadow:var(--shadow-md)}
     .photo-card .art{display:block;width:100%;height:auto;background:linear-gradient(150deg,#171040,#2b1b5e)}
     .photo-card .body{padding:20px 22px}
-    .photo-card h3{margin:0 0 8px;font-family:var(--display);font-size:1.05rem;font-weight:700}
+    .photo-card h3{margin:0 0 8px;font-family:var(--display);font-size:1.02rem;font-weight:700}
     .photo-card p{margin:0;color:var(--muted);font-size:.93rem}
     .photo-card .tag{margin-top:12px}
     .flow-path{stroke-dasharray:150 46;animation:flow-dash 9s linear infinite}
@@ -232,7 +253,7 @@
     @keyframes wing-sway{from{transform:rotate(-1.4deg)}to{transform:rotate(1.4deg)}}
 
     /* ---------- quote ---------- */
-    .quote{font-family:var(--display);font-size:clamp(1.7rem,3.3vw,2.5rem);line-height:1.32;margin-bottom:14px;font-weight:700;background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .quote{font-family:var(--display);font-size:clamp(1.7rem,3.3vw,2.5rem);line-height:1.3;margin-bottom:14px;font-weight:800;background:linear-gradient(92deg,#a48fff,#ff8a5c);-webkit-background-clip:text;background-clip:text;color:transparent}
 
     /* ---------- contact ---------- */
     .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
@@ -240,16 +261,24 @@
       radial-gradient(420px 300px at 90% 0%,rgba(124,99,255,.4),transparent 60%),
       radial-gradient(360px 260px at 0% 100%,rgba(255,92,57,.25),transparent 60%),
       linear-gradient(145deg,#151036,#241a4d);color:white;border-radius:18px;padding:32px}
-    .contact-card h3{font-family:var(--display);font-size:1.3rem;font-weight:700}
+    .contact-card h3{font-family:var(--display);font-size:1.25rem;font-weight:800}
     .contact-card a{color:#c4b8ff}
+    .copy-btn{font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;margin-left:10px;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#e6e0ff;cursor:pointer;transition:background .18s ease,border-color .18s ease}
+    .copy-btn:hover{background:rgba(255,255,255,.12)}
+    .copy-btn.done{border-color:#7ee2b8;color:#7ee2b8}
     .references{display:grid;gap:14px}
     .reference{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;transition:transform .2s ease,box-shadow .2s ease}
     .reference:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-    .reference h3{font-family:var(--display);margin:0 0 5px;font-weight:700;font-size:1.02rem}
+    .reference h3{font-family:var(--display);margin:0 0 5px;font-weight:700;font-size:1rem}
     .reference p{color:var(--muted)}
     footer{background:#120d2e;color:#c9c2e8;padding:32px 0;font-size:.92rem}
     .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:20px}
     .footer-inner a{color:#c4b8ff}
+
+    /* ---------- back to top ---------- */
+    .to-top{position:fixed;right:22px;bottom:22px;z-index:40;width:48px;height:48px;border-radius:50%;border:0;background:linear-gradient(135deg,#7c63ff,#ff6a3d);color:#fff;font-size:1.15rem;font-weight:700;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease;box-shadow:0 10px 26px rgba(95,69,232,.4)}
+    .to-top.show{opacity:1;pointer-events:auto;transform:none}
+    .to-top:hover{transform:translateY(-3px)}
 
     /* ---------- motion ---------- */
     .reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease var(--d,0ms),transform .6s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
@@ -268,7 +297,8 @@
       .stats{grid-template-columns:repeat(2,1fr);gap:1px}
       .hero{min-height:620px}
       .hero-atom{opacity:.32;right:-140px}
-      .hero-content{padding:74px 0 96px}
+      .hero-content{padding:74px 0 100px}
+      .hero-hint{display:none}
       .feature{gap:28px}
       .photo-grid{grid-template-columns:1fr 1fr}
       .footer-inner{align-items:flex-start;flex-direction:column}
@@ -282,29 +312,31 @@
     @media(max-width:520px){
       .wrap{width:min(100% - 30px,1120px)}
       body{font-size:.98rem}
-      .hero h1{font-size:2.1rem}
+      .hero h1{font-size:2.2rem}
       .hero .lead{font-size:1.02rem}
+      .scroll-hint{display:none}
       .stats{grid-template-columns:1fr;margin-top:-28px}
       .stat{padding:20px 22px}
       section{padding:68px 0}
-      .section-title{font-size:1.6rem}
-      .sec-num{font-size:2.5rem}
-      .publication{padding:48px 18px 18px}
-      .publication:before{left:18px;top:17px}
-      .publication a{right:18px;top:15px}
+      .section-title{font-size:1.7rem}
+      .sec-num{font-size:2.4rem}
+      .publication{grid-template-columns:1fr;gap:8px;padding:18px}
+      .pub-link{justify-self:start}
       .photo-grid{grid-template-columns:1fr}
       .contact-card{padding:26px}
+      .to-top{right:14px;bottom:14px}
     }
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
       .hero-content{animation:none}
       .reveal,.jitem.left.reveal,.jitem.right.reveal{opacity:1;transform:none;transition:none}
-      .btn,.card,.photo-card,.publication,.skill,.award,.reference,.tag,.jitem,.links a:after{transition:none}
+      .btn,.card,.photo-card,.publication,.skill,.award,.reference,.tag,.jitem,.fbtn,.pub-link,.links a:after{transition:none}
       .section-title:after{transform:scaleX(1);transition:none}
       .bar i{transition:none}
-      .hero-atom .orbit,.ph-ray,.carrier-e,.carrier-h,.caret,.flow-path,.bub,.wing-sway,.jitem.now:before,.ticker-track{animation:none}
+      .hero-atom .orbit,.ph-ray,.carrier-e,.carrier-h,.caret,.flow-path,.bub,.wing-sway,.jitem.now:before,.ticker-track,.wheel:after,.pop{animation:none}
       .carrier-e,.carrier-h,.ph-ray{opacity:0}
       .progress{display:none}
+      .scroll-hint{display:none}
     }
   </style>
 </head>
@@ -347,6 +379,8 @@
         <a class="btn btn-ghost" href="#contact">Start a collaboration</a>
       </div>
     </div>
+    <div class="scroll-hint" aria-hidden="true"><span class="wheel"></span>Scroll</div>
+    <div class="hero-hint" aria-hidden="true">Click anywhere · emit a photon</div>
   </header>
 
   <div class="wrap stats">
@@ -470,7 +504,7 @@
         </div>
         <div class="feature">
           <figure class="device-figure">
-            <svg viewBox="0 0 560 400" role="img" aria-label="Animated schematic of a monolithic perovskite/silicon tandem solar cell: photons enter from the top, electrons drift upward and holes drift downward through the layer stack.">
+            <svg viewBox="0 0 560 400" role="img" aria-label="Interactive schematic of a monolithic perovskite tandem solar cell: photons enter from the top, electrons drift upward and holes drift downward through the layer stack. Hover or tap each layer to learn its role.">
               <defs>
                 <linearGradient id="wbg" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#ffc24d"/><stop offset="1" stop-color="#f09c1f"/>
@@ -484,13 +518,13 @@
                 <line class="ph-ray r2" x1="235" y1="6" x2="273" y2="96"/>
                 <line class="ph-ray r3" x1="320" y1="6" x2="358" y2="96"/>
               </g>
-              <rect x="70" y="100" width="330" height="22" rx="3" fill="rgba(207,196,255,.32)"/>
-              <rect x="70" y="126" width="330" height="16" rx="3" fill="rgba(255,255,255,.3)"/>
-              <rect x="70" y="146" width="330" height="70" rx="3" fill="url(#wbg)"/>
-              <rect x="70" y="220" width="330" height="10" rx="2" fill="#efeaff"/>
-              <rect x="70" y="234" width="330" height="86" rx="3" fill="url(#nbg)"/>
-              <rect x="70" y="324" width="330" height="18" rx="3" fill="#0f0b26" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
-              <g font-family="Space Grotesk,Manrope,Arial,sans-serif" font-size="12.5" fill="#d9d3f2">
+              <rect class="layer" data-info="Glass with anti-reflection coating — lets the maximum amount of sunlight enter the cell." x="70" y="100" width="330" height="22" rx="3" fill="rgba(207,196,255,.32)"/>
+              <rect class="layer" data-info="Transparent electrode — collects charge while letting light pass through." x="70" y="126" width="330" height="16" rx="3" fill="rgba(255,255,255,.3)"/>
+              <rect class="layer" data-info="Wide-bandgap perovskite — absorbs the high-energy blue and green photons." x="70" y="146" width="330" height="70" rx="3" fill="url(#wbg)"/>
+              <rect class="layer" data-info="Recombination layer — where electrons and holes from the two sub-cells meet and recombine." x="70" y="220" width="330" height="10" rx="2" fill="#efeaff"/>
+              <rect class="layer" data-info="Narrow-bandgap absorber — captures the remaining red and infrared light." x="70" y="234" width="330" height="86" rx="3" fill="url(#nbg)"/>
+              <rect class="layer" data-info="Metal back contact — completes the circuit and reflects stray photons back into the cell." x="70" y="324" width="330" height="18" rx="3" fill="#0f0b26" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+              <g font-family="Space Grotesk,Manrope,Arial,sans-serif" font-size="12.5" fill="#d9d3f2" pointer-events="none">
                 <text x="412" y="115">Glass / AR coating</text>
                 <text x="412" y="137">Transparent electrode</text>
                 <text x="412" y="184" fill="#ffd9a0">Wide-bandgap</text>
@@ -503,7 +537,7 @@
                 <text x="160" y="376" fill="#c9bcff">● electron</text>
                 <text x="255" y="376" fill="#ffab91">○ hole</text>
               </g>
-              <g>
+              <g pointer-events="none">
                 <circle class="carrier-e" cx="150" cy="255" r="4.5" fill="#c9bcff"/>
                 <circle class="carrier-e c2" cx="235" cy="290" r="4.5" fill="#c9bcff"/>
                 <circle class="carrier-e c3" cx="320" cy="268" r="4.5" fill="#c9bcff"/>
@@ -512,7 +546,7 @@
                 <circle class="carrier-h c3" cx="345" cy="232" r="4.5" fill="none" stroke="#ffab91" stroke-width="2"/>
               </g>
             </svg>
-            <figcaption>Monolithic two-terminal perovskite tandem architecture — light in, charge out (schematic).</figcaption>
+            <figcaption>Monolithic tandem architecture — hover or tap each layer to see what it does.</figcaption>
           </figure>
           <div>
             <h3>Tandem Photovoltaics & Interface Engineering</h3>
@@ -531,27 +565,96 @@
           <span class="sec-num">04</span>
           <div class="eyebrow" style="color:var(--violet)">Publications</div>
           <h2 class="section-title">Selected scientific work.</h2>
+          <p>Peer-reviewed research spanning perovskite photovoltaics, photodetectors, memory devices, and energy storage. Filter by role:</p>
+        </div>
+        <div class="pub-filter" role="group" aria-label="Filter publications">
+          <button class="fbtn active" data-filter="all">All · 9</button>
+          <button class="fbtn" data-filter="first">First author · 3</button>
+          <button class="fbtn" data-filter="collab">Collaborations · 6</button>
         </div>
         <div class="publication-list">
-          <div class="publication">Thakran A. et al., “Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells,” <i>Chemical Engineering Journal</i>, 530, 173197, 2026.<a href="https://doi.org/10.1016/j.cej.2026.173197" aria-label="Open publication: Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells">Link</a></div>
-          <div class="publication">Thakran A. et al., “Cascaded-Type Band Alignment of a WBG Perovskite/NBG Perovskite for Heterostructure Solar Cells,” <i>ACS Applied Energy Materials</i>, 7 (8), 3039–3048, 2024.<a href="https://doi.org/10.1021/acsaem.3c02258" aria-label="Open publication: Cascaded-Type Band Alignment">Link</a></div>
-          <div class="publication">Thakran A. et al., “Highly Efficient Photodetection in Metal Nanocluster/Graphene Heterojunctions,” <i>ACS Photonics</i>, 8 (10), 2955–2965, 2021.<a href="https://doi.org/10.1021/acsphotonics.1c00885" aria-label="Open publication: Highly Efficient Photodetection">Link</a></div>
-          <div class="publication">Ansari Z.A. et al., “Synergistic Effects of Additive Engineering in Sn-Pb Perovskite Thin-Film Transistors and Logic Circuits,” <i>Advanced Science</i>, 2026.<a href="https://doi.org/10.1002/advs.202520241" aria-label="Open publication: Synergistic Effects of Additive Engineering">Link</a></div>
-          <div class="publication">Dhage A. et al., “Flexible Polyimide Derived Anode Material,” <i>Batteries & Supercaps</i>, 2026.<a href="https://doi.org/10.1002/batt.202500785" aria-label="Open publication: Flexible Polyimide Derived Anode Material">Link</a></div>
-          <div class="publication">Mustaqeem M. et al., “Optically Encodable and Erasable Multilevel Nonvolatile Flexible Memory Device,” <i>ACS Applied Materials & Interfaces</i>, 2022.<a href="https://doi.org/10.1021/acsami.2c02440" aria-label="Open publication: Optically Encodable and Erasable Memory Device">Link</a></div>
-          <div class="publication">Wang C.-C. et al., “Generation of Silver Metal Nanocluster Random Lasing,” <i>ACS Photonics</i>.<a href="https://doi.org/10.1021/acsphotonics.1c01065" aria-label="Open publication: Silver Metal Nanocluster Random Lasing">Link</a></div>
-          <div class="publication">Chen Y.-T. et al., “Synergistic Composite Solid Electrolyte for High-Performance Lithium Metal Batteries,” <i>Small</i>, 2025.<a href="https://doi.org/10.1002/smll.202507080" aria-label="Open publication: Synergistic Composite Solid Electrolyte">Link</a></div>
-          <div class="publication">Chen C.-Y. et al., “Round-Robin Interlaboratory Comparison of Large-Area Organic Thin-Film and Perovskite Solar Cells,” <i>Solar RRL</i>, 2025.<a href="https://doi.org/10.1002/solr.202500538" aria-label="Open publication: Round-Robin Interlaboratory Comparison">Link</a></div>
+          <article class="publication" data-kind="first">
+            <span class="pub-year">2026</span>
+            <div>
+              <h3>Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells</h3>
+              <p class="pub-meta">Thakran A. et al. · <i>Chemical Engineering Journal</i>, 530, 173197<span class="pub-badge">First author</span></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1016/j.cej.2026.173197" aria-label="Open publication: Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="first">
+            <span class="pub-year">2024</span>
+            <div>
+              <h3>Cascaded-Type Band Alignment of a WBG Perovskite/NBG Perovskite for Heterostructure Solar Cells</h3>
+              <p class="pub-meta">Thakran A. et al. · <i>ACS Applied Energy Materials</i>, 7 (8), 3039–3048<span class="pub-badge">First author</span></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1021/acsaem.3c02258" aria-label="Open publication: Cascaded-Type Band Alignment">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="first">
+            <span class="pub-year">2021</span>
+            <div>
+              <h3>Highly Efficient Photodetection in Metal Nanocluster/Graphene Heterojunctions</h3>
+              <p class="pub-meta">Thakran A. et al. · <i>ACS Photonics</i>, 8 (10), 2955–2965<span class="pub-badge">First author</span></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c00885" aria-label="Open publication: Highly Efficient Photodetection">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2026</span>
+            <div>
+              <h3>Synergistic Effects of Additive Engineering in Sn-Pb Perovskite Thin-Film Transistors and Logic Circuits</h3>
+              <p class="pub-meta">Ansari Z.A. et al. · <i>Advanced Science</i></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1002/advs.202520241" aria-label="Open publication: Synergistic Effects of Additive Engineering">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2026</span>
+            <div>
+              <h3>Flexible Polyimide Derived Anode Material</h3>
+              <p class="pub-meta">Dhage A. et al. · <i>Batteries & Supercaps</i></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1002/batt.202500785" aria-label="Open publication: Flexible Polyimide Derived Anode Material">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2025</span>
+            <div>
+              <h3>Synergistic Composite Solid Electrolyte for High-Performance Lithium Metal Batteries</h3>
+              <p class="pub-meta">Chen Y.-T. et al. · <i>Small</i></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1002/smll.202507080" aria-label="Open publication: Synergistic Composite Solid Electrolyte">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2025</span>
+            <div>
+              <h3>Round-Robin Interlaboratory Comparison of Large-Area Organic Thin-Film and Perovskite Solar Cells</h3>
+              <p class="pub-meta">Chen C.-Y. et al. · <i>Solar RRL</i></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1002/solr.202500538" aria-label="Open publication: Round-Robin Interlaboratory Comparison">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2022</span>
+            <div>
+              <h3>Optically Encodable and Erasable Multilevel Nonvolatile Flexible Memory Device</h3>
+              <p class="pub-meta">Mustaqeem M. et al. · <i>ACS Applied Materials & Interfaces</i></p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1021/acsami.2c02440" aria-label="Open publication: Optically Encodable and Erasable Memory Device">DOI ↗</a>
+          </article>
+          <article class="publication" data-kind="collab">
+            <span class="pub-year">2021</span>
+            <div>
+              <h3>Generation of Silver Metal Nanocluster Random Lasing</h3>
+              <p class="pub-meta">Wang C.-C. et al. · <i>ACS Photonics</i>, 8 (10), 3051–3060</p>
+            </div>
+            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c01065" aria-label="Open publication: Silver Metal Nanocluster Random Lasing">DOI ↗</a>
+          </article>
         </div>
 
         <h3 class="small-title">Conference Presentations</h3>
         <div class="grid-2">
-          <div class="card">Taiwan Physical Society (TPS), Jan 2025 · Poster presentation</div>
-          <div class="card">OPTICA, Nov 2024 · Poster presentation</div>
-          <div class="card">Materials Research Society, Apr 2024 · Oral presentation</div>
-          <div class="card">Solid State Devices and Materials, Sep 2024 · Poster presentation</div>
-          <div class="card">Materials Research Society, Apr 2023 · Poster presentation</div>
-          <div class="card">European Materials Research Society, Sep 2024 · Poster presentation</div>
+          <div class="card">Taiwan Physical Society (TPS)<div style="margin-top:10px"><span class="tag">Poster</span><span class="tag tag-warm">Jan 2025</span></div></div>
+          <div class="card">OPTICA<div style="margin-top:10px"><span class="tag">Poster</span><span class="tag tag-warm">Nov 2024</span></div></div>
+          <div class="card">Materials Research Society<div style="margin-top:10px"><span class="tag">Oral</span><span class="tag tag-warm">Apr 2024</span></div></div>
+          <div class="card">Solid State Devices and Materials<div style="margin-top:10px"><span class="tag">Poster</span><span class="tag tag-warm">Sep 2024</span></div></div>
+          <div class="card">Materials Research Society<div style="margin-top:10px"><span class="tag">Poster</span><span class="tag tag-warm">Apr 2023</span></div></div>
+          <div class="card">European Materials Research Society<div style="margin-top:10px"><span class="tag">Poster</span><span class="tag tag-warm">Sep 2024</span></div></div>
         </div>
 
         <h3 class="small-title">Workshops</h3>
@@ -623,18 +726,25 @@
           <div class="eyebrow" style="color:var(--violet)">Awards & Honours</div>
           <h2 class="section-title">Recognition along the journey.</h2>
         </div>
+        <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+          <symbol id="award-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="9" r="6" fill="none" stroke="#ffb020" stroke-width="1.8"/>
+            <path d="M12 5.6l1.05 2.13 2.35.34-1.7 1.66.4 2.34L12 10.97l-2.1 1.1.4-2.34-1.7-1.66 2.35-.34z" fill="#ffb020"/>
+            <path d="M8.6 14.4 7 21l5-2.6L17 21l-1.6-6.6" fill="none" stroke="#7c63ff" stroke-width="1.8" stroke-linejoin="round"/>
+          </symbol>
+        </svg>
         <div class="award-list">
-          <div class="award"><b>Excellent Honorable Mention</b><br>Taiwan Physical Society Poster Prize · Jan 2025</div>
-          <div class="award"><b>Junior Scientist Award — Gold Medal</b><br>RCAS, Academia Sinica · Dec 2023</div>
-          <div class="award"><b>TIGP Fellowship</b><br>NANO Program · 2019–2025</div>
-          <div class="award"><b>Third Prize</b><br>TIGP SCST/MST/NST Joint Poster Contest · Nov 2024</div>
-          <div class="award"><b>Honorable Mention</b><br>Academia Sinica Scientific Photography Contest · Jan 2024</div>
-          <div class="award"><b>Top Finalist</b><br>Academia Sinica Student Poster Contest · Nov 2023</div>
-          <div class="award"><b>Honorable Mention</b><br>Nanoartgraphy, Purdue University · Nov 2024</div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Excellent Honorable Mention</b><br>Taiwan Physical Society Poster Prize · Jan 2025</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Junior Scientist Award — Gold Medal</b><br>RCAS, Academia Sinica · Dec 2023</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>TIGP Fellowship</b><br>NANO Program · 2019–2025</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Third Prize</b><br>TIGP SCST/MST/NST Joint Poster Contest · Nov 2024</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Honorable Mention</b><br>Academia Sinica Scientific Photography Contest · Jan 2024</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Top Finalist</b><br>Academia Sinica Student Poster Contest · Nov 2023</span></div>
+          <div class="award"><svg width="24" height="24"><use href="#award-icon"/></svg><span><b>Honorable Mention</b><br>Nanoartgraphy, Purdue University · Nov 2024</span></div>
         </div>
 
         <h3 class="small-title">Scientific Photography</h3>
-        <p class="muted" style="max-width:760px">Selected pieces from my award-recognized scientific photography, rendered here as stylized illustrations of the original micrographs.</p>
+        <p class="muted" style="max-width:760px">Selected pieces from my award-recognized scientific photography, rendered here as stylized illustrations of the original micrographs. Move your cursor over a card — they respond.</p>
         <div class="photo-grid">
           <article class="photo-card">
             <svg class="art" viewBox="0 0 400 240" aria-hidden="true">
@@ -717,7 +827,7 @@
           <div class="contact-card">
             <h3>Dr. Anjali Thakran</h3>
             <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
-            <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
+            <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
           </div>
           <div class="references">
             <div class="reference"><h3>Prof. Chih Wei Chu</h3><p>Thesis Advisor · Research Center for Applied Sciences, Academia Sinica, Nangang</p><a href="mailto:gchu@gate.sinica.edu.tw">gchu@gate.sinica.edu.tw</a></div>
@@ -735,6 +845,8 @@
     </div>
   </footer>
 
+  <button class="to-top" aria-label="Back to top">↑</button>
+
   <script>
     const menu=document.querySelector('.menu'),links=document.querySelector('.links');
     menu.addEventListener('click',()=>{const open=links.classList.toggle('open');menu.setAttribute('aria-expanded',open);menu.setAttribute('aria-label',open?'Close navigation':'Open navigation')});
@@ -751,6 +863,11 @@
       window.addEventListener('scroll',()=>{if(!progressTick){progressTick=true;requestAnimationFrame(updateProgress)}},{passive:true});
       updateProgress();
     }
+
+    /* back to top */
+    const toTop=document.querySelector('.to-top');
+    window.addEventListener('scroll',()=>{toTop.classList.toggle('show',document.documentElement.scrollTop>600)},{passive:true});
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:reduced?'auto':'smooth'}));
 
     /* typewriter — cycles specialties in the hero */
     const typedEl=document.querySelector('.typed');
@@ -785,6 +902,56 @@
     if(reduced){revealItems.forEach(item=>item.classList.add('is-visible'))}else{
       const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -30px'});
       revealItems.forEach(item=>revealObserver.observe(item));
+    }
+
+    /* publication filter */
+    const filterButtons=document.querySelectorAll('.fbtn');
+    const pubs=document.querySelectorAll('.publication');
+    filterButtons.forEach(btn=>btn.addEventListener('click',()=>{
+      filterButtons.forEach(b=>b.classList.toggle('active',b===btn));
+      const kind=btn.dataset.filter;
+      pubs.forEach(pub=>{
+        const show=kind==='all'||pub.dataset.kind===kind;
+        pub.classList.toggle('pub-hidden',!show);
+        if(show){
+          pub.classList.add('is-visible');
+          if(!reduced){pub.classList.remove('pop');void pub.offsetWidth;pub.classList.add('pop')}
+        }
+      });
+    }));
+
+    /* interactive tandem-cell layers */
+    const deviceCaption=document.querySelector('.device-figure figcaption');
+    if(deviceCaption){
+      const defaultCaption=deviceCaption.textContent;
+      document.querySelectorAll('.device-figure .layer').forEach(layer=>{
+        const showInfo=()=>{deviceCaption.textContent=layer.dataset.info;deviceCaption.classList.add('active')};
+        const hideInfo=()=>{deviceCaption.textContent=defaultCaption;deviceCaption.classList.remove('active')};
+        layer.addEventListener('mouseenter',showInfo);
+        layer.addEventListener('mouseleave',hideInfo);
+        layer.addEventListener('click',showInfo);
+      });
+    }
+
+    /* copy email */
+    document.querySelectorAll('.copy-btn').forEach(btn=>btn.addEventListener('click',()=>{
+      navigator.clipboard.writeText(btn.dataset.copy).then(()=>{
+        btn.textContent='Copied ✓';btn.classList.add('done');
+        setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done')},1800);
+      });
+    }));
+
+    /* 3D tilt on photography cards */
+    if(!reduced&&matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('.photo-card').forEach(cardEl=>{
+        cardEl.addEventListener('mousemove',event=>{
+          const r=cardEl.getBoundingClientRect();
+          const rx=((event.clientY-r.top)/r.height-.5)*-7;
+          const ry=((event.clientX-r.left)/r.width-.5)*7;
+          cardEl.style.transform=`perspective(750px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-3px)`;
+        });
+        cardEl.addEventListener('mouseleave',()=>{cardEl.style.transform=''});
+      });
     }
 
     /* count-up statistics */
@@ -834,12 +1001,13 @@
 
     /* ---- hero physics: photons rain onto a drifting charge-carrier field.
        When a photon is absorbed it emits an expanding "exciton" ring and kicks
-       the nearest carrier; the pointer gently repels carriers. ---- */
+       the nearest carrier; the pointer repels carriers, and clicking anywhere
+       in the hero sets off a photon burst. ---- */
     (()=>{
       if(reduced)return;
       const canvas=document.querySelector('.hero-canvas'),ctx=canvas.getContext('2d');
       const hero=document.querySelector('.hero');
-      let W=0,H=0,frameId,carriers=[],photons=[],ripples=[];
+      let W=0,H=0,frameId,carriers=[],photons=[],ripples=[],sparks=[];
       const pointer={x:-9999,y:-9999};
 
       const resizeField=()=>{
@@ -906,6 +1074,14 @@
           return true;
         });
 
+        sparks=sparks.filter(spark=>{
+          spark.x+=spark.vx;spark.y+=spark.vy;spark.vy+=.045;spark.life-=.018;
+          if(spark.life<=0)return false;
+          ctx.beginPath();ctx.arc(spark.x,spark.y,Math.max(.4,1.9*spark.life),0,Math.PI*2);
+          ctx.fillStyle=`rgba(255,150,96,${spark.life})`;ctx.fill();
+          return true;
+        });
+
         carriers.forEach((particle,index)=>{
           const px=particle.x-pointer.x,py=particle.y-pointer.y,pd=Math.hypot(px,py);
           if(pd<120&&pd>0){particle.vx+=(px/pd)*.04;particle.vy+=(py/pd)*.04}
@@ -935,6 +1111,26 @@
         pointer.x=event.clientX-rect.left;pointer.y=event.clientY-rect.top;
       },{passive:true});
       hero.addEventListener('pointerleave',()=>{pointer.x=-9999;pointer.y=-9999},{passive:true});
+
+      /* click anywhere in the hero: photon burst */
+      hero.addEventListener('click',event=>{
+        if(event.target.closest('a,button'))return;
+        const rect=canvas.getBoundingClientRect();
+        const x=event.clientX-rect.left,y=event.clientY-rect.top;
+        ripples.push({x,y,r:3,alpha:.6});
+        ripples.push({x,y,r:12,alpha:.35});
+        for(let i=0;i<12;i++){
+          const angle=Math.random()*Math.PI*2,speed=1.4+Math.random()*2.4;
+          sparks.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-.7,life:1});
+        }
+        carriers.forEach(carrier=>{
+          const dx=carrier.x-x,dy=carrier.y-y,distance=Math.hypot(dx,dy);
+          if(distance<150&&distance>0){
+            carrier.glow=1;
+            carrier.vx+=(dx/distance)*1.4;carrier.vy+=(dy/distance)*1.4;
+          }
+        });
+      });
 
       resizeField();drawField();
       window.addEventListener('resize',resizeField,{passive:true});
