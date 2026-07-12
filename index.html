@@ -9,6 +9,15 @@
   <meta property="og:description" content="Postdoctoral researcher developing perovskite solar cells, tandem photovoltaics and interface engineering for next-generation clean energy.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thakran27.github.io/">
+  <meta property="og:image" content="https://thakran27.github.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dr. Anjali Thakran | Semiconductor & Photovoltaics Researcher">
+  <meta name="twitter:description" content="Postdoctoral researcher developing perovskite solar cells, tandem photovoltaics and interface engineering for next-generation clean energy.">
+  <meta name="twitter:image" content="https://thakran27.github.io/og-image.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://thakran27.github.io/">
   <title>Dr. Anjali Thakran | Semiconductor & Photovoltaics Researcher</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -568,9 +577,9 @@
           <p>Peer-reviewed research spanning perovskite photovoltaics, photodetectors, memory devices, and energy storage. Filter by role:</p>
         </div>
         <div class="pub-filter" role="group" aria-label="Filter publications">
-          <button class="fbtn active" data-filter="all">All · 9</button>
-          <button class="fbtn" data-filter="first">First author · 3</button>
-          <button class="fbtn" data-filter="collab">Collaborations · 6</button>
+          <button class="fbtn active" data-filter="all" aria-pressed="true">All · 9</button>
+          <button class="fbtn" data-filter="first" aria-pressed="false">First author · 3</button>
+          <button class="fbtn" data-filter="collab" aria-pressed="false">Collaborations · 6</button>
         </div>
         <div class="publication-list">
           <article class="publication" data-kind="first">
@@ -908,7 +917,7 @@
     const filterButtons=document.querySelectorAll('.fbtn');
     const pubs=document.querySelectorAll('.publication');
     filterButtons.forEach(btn=>btn.addEventListener('click',()=>{
-      filterButtons.forEach(b=>b.classList.toggle('active',b===btn));
+      filterButtons.forEach(b=>{b.classList.toggle('active',b===btn);b.setAttribute('aria-pressed',b===btn)});
       const kind=btn.dataset.filter;
       pubs.forEach(pub=>{
         const show=kind==='all'||pub.dataset.kind===kind;
