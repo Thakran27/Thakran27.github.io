@@ -152,6 +152,10 @@
     .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
     .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:27px;box-shadow:0 1px 1px rgba(35,22,90,.03);transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
     .card:hover{transform:translateY(-3px);border-color:#cfc4f5;box-shadow:var(--shadow-sm)}
+    /* cursor spotlight on light cards */
+    .card,.skill,.reference,.award{position:relative}
+    .card:before,.skill:before,.reference:before,.award:before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s ease;pointer-events:none;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(124,99,255,.13),transparent 65%)}
+    .card:hover:before,.skill:hover:before,.reference:hover:before,.award:hover:before{opacity:1}
     .card h3{margin:0 0 10px;font-family:var(--display);font-size:1.1rem;line-height:1.35;font-weight:700}
     .tag{display:inline-block;background:var(--violet-soft);color:var(--violet-deep);border:1px solid #ddd3fb;border-radius:999px;padding:5px 12px;margin:4px 4px 4px 0;font-family:var(--label);font-size:.78rem;font-weight:600;transition:transform .15s ease,background .15s ease}
     .tag:hover{transform:translateY(-2px);background:#e6ddff}
@@ -161,6 +165,17 @@
       radial-gradient(560px 400px at 6% 92%,rgba(255,92,57,.2),transparent 60%),
       linear-gradient(135deg,#151036,#1d1547)}
     .dark .section-head p{color:#c9c2e8}
+    /* drifting star dust in dark sections */
+    .dark:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
+      background-image:
+        radial-gradient(2px 2px at 12% 30%,rgba(207,196,255,.55),transparent 60%),
+        radial-gradient(1.5px 1.5px at 78% 18%,rgba(255,176,32,.5),transparent 60%),
+        radial-gradient(2px 2px at 55% 72%,rgba(207,196,255,.4),transparent 60%),
+        radial-gradient(1.5px 1.5px at 30% 85%,rgba(255,138,92,.45),transparent 60%),
+        radial-gradient(2px 2px at 90% 60%,rgba(207,196,255,.35),transparent 60%),
+        radial-gradient(1.5px 1.5px at 42% 12%,rgba(207,196,255,.45),transparent 60%);
+      animation:dust-drift 26s ease-in-out infinite alternate}
+    @keyframes dust-drift{from{transform:translateY(6px)}to{transform:translateY(-18px)}}
     .small-title{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:1.3rem;margin:52px 0 20px;font-weight:800}
     .small-title:before{content:"";width:26px;height:4px;border-radius:2px;background:var(--grad);flex:0 0 auto}
 
@@ -201,6 +216,9 @@
     .ph-ray{stroke:#ff9a63;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:10 130;animation:ray-fall 2.8s linear infinite}
     .ph-ray.r2{animation-delay:.9s}
     .ph-ray.r3{animation-delay:1.8s}
+    /* "turn up the sun": hovering the device intensifies the physics */
+    .device-figure:hover .ph-ray{animation-duration:1.15s}
+    .device-figure:hover .carrier-e,.device-figure:hover .carrier-h{animation-duration:1.7s}
     @keyframes ray-fall{from{stroke-dashoffset:140}to{stroke-dashoffset:0}}
     .carrier-e{animation:e-up 3.4s ease-in-out infinite}
     .carrier-h{animation:h-down 3.4s ease-in-out infinite}
@@ -224,6 +242,8 @@
     .pub-badge{display:inline-block;background:var(--violet-soft);color:var(--violet-deep);border-radius:999px;padding:2px 9px;font-family:var(--label);font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-left:6px;vertical-align:1px}
     .pub-link{font-family:var(--label);font-size:.78rem;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 15px;color:var(--violet-deep);transition:background .18s ease,border-color .18s ease,color .18s ease;white-space:nowrap}
     .pub-link:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+    .pub-link .arr{display:inline-block;transition:transform .2s ease}
+    .pub-link:hover .arr{transform:translate(2px,-2px)}
     .pub-hidden{display:none}
     .pop{animation:pub-pop .45s cubic-bezier(.2,.7,.2,1)}
     @keyframes pub-pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -251,13 +271,17 @@
     .award:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
     .award:after{content:"";position:absolute;top:0;left:-80%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(124,99,255,.14),transparent);transform:skewX(-20deg);transition:left .55s ease;pointer-events:none}
     .award:hover:after{left:135%}
-    .award svg{flex:0 0 auto;margin-top:3px}
+    .award svg{flex:0 0 auto;margin-top:3px;transition:transform .25s ease}
+    .award:hover svg{transform:rotate(-8deg) scale(1.1)}
     .award b{color:var(--violet-deep);font-family:var(--display);font-size:.97rem;font-weight:700}
 
     /* ---------- scientific photography ---------- */
     .photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:900px}
     .photo-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;will-change:transform}
     .photo-card:hover{box-shadow:var(--shadow-md)}
+    .photo-card:hover .flow-path{animation-duration:4.5s}
+    .photo-card:hover .bub{animation-duration:3.5s}
+    .photo-card:hover .wing-sway{animation-duration:3s}
     .photo-card .art{display:block;width:100%;height:auto;background:linear-gradient(150deg,#171040,#2b1b5e)}
     .photo-card .body{padding:20px 22px}
     .photo-card h3{margin:0 0 8px;font-family:var(--display);font-size:1.02rem;font-weight:700}
@@ -364,7 +388,8 @@
       .section-title:after{transform:scaleX(1);transition:none}
       .bar i{transition:none}
       .hero-atom .orbit,.ph-ray,.carrier-e,.carrier-h,.caret,.flow-path,.bub,.wing-sway,.jitem.now:before,.ticker-track,.wheel:after,.pop{animation:none}
-      .award:after,.brand-atom,.lvl .pct,.quote .qw,.stat,.ticker a,.footer-links a,.footer-social a{transition:none}
+      .award:after,.brand-atom,.lvl .pct,.quote .qw,.stat,.ticker a,.footer-links a,.footer-social a,.award svg,.pub-link .arr,.card:before,.skill:before,.reference:before,.award:before{transition:none}
+      .dark:after{animation:none}
       .carrier-e,.carrier-h,.ph-ray{opacity:0}
       .progress{display:none}
       .scroll-hint{display:none}
@@ -610,7 +635,7 @@
               <h3>Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells</h3>
               <p class="pub-meta">Thakran A. et al. · <i>Chemical Engineering Journal</i>, 530, 173197<span class="pub-badge">First author</span></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1016/j.cej.2026.173197" aria-label="Open publication: Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1016/j.cej.2026.173197" aria-label="Open publication: Additive-Mediated Controlled Growth of Printed Perovskite Solar Cells">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="first">
             <span class="pub-year">2024</span>
@@ -618,7 +643,7 @@
               <h3>Cascaded-Type Band Alignment of a WBG Perovskite/NBG Perovskite for Heterostructure Solar Cells</h3>
               <p class="pub-meta">Thakran A. et al. · <i>ACS Applied Energy Materials</i>, 7 (8), 3039–3048<span class="pub-badge">First author</span></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1021/acsaem.3c02258" aria-label="Open publication: Cascaded-Type Band Alignment">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1021/acsaem.3c02258" aria-label="Open publication: Cascaded-Type Band Alignment">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="first">
             <span class="pub-year">2021</span>
@@ -626,7 +651,7 @@
               <h3>Highly Efficient Photodetection in Metal Nanocluster/Graphene Heterojunctions</h3>
               <p class="pub-meta">Thakran A. et al. · <i>ACS Photonics</i>, 8 (10), 2955–2965<span class="pub-badge">First author</span></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c00885" aria-label="Open publication: Highly Efficient Photodetection">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c00885" aria-label="Open publication: Highly Efficient Photodetection">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2026</span>
@@ -634,7 +659,7 @@
               <h3>Synergistic Effects of Additive Engineering in Sn-Pb Perovskite Thin-Film Transistors and Logic Circuits</h3>
               <p class="pub-meta">Ansari Z.A. et al. · <i>Advanced Science</i></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1002/advs.202520241" aria-label="Open publication: Synergistic Effects of Additive Engineering">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1002/advs.202520241" aria-label="Open publication: Synergistic Effects of Additive Engineering">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2026</span>
@@ -642,7 +667,7 @@
               <h3>Flexible Polyimide Derived Anode Material</h3>
               <p class="pub-meta">Dhage A. et al. · <i>Batteries & Supercaps</i></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1002/batt.202500785" aria-label="Open publication: Flexible Polyimide Derived Anode Material">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1002/batt.202500785" aria-label="Open publication: Flexible Polyimide Derived Anode Material">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2025</span>
@@ -650,7 +675,7 @@
               <h3>Synergistic Composite Solid Electrolyte for High-Performance Lithium Metal Batteries</h3>
               <p class="pub-meta">Chen Y.-T. et al. · <i>Small</i></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1002/smll.202507080" aria-label="Open publication: Synergistic Composite Solid Electrolyte">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1002/smll.202507080" aria-label="Open publication: Synergistic Composite Solid Electrolyte">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2025</span>
@@ -658,7 +683,7 @@
               <h3>Round-Robin Interlaboratory Comparison of Large-Area Organic Thin-Film and Perovskite Solar Cells</h3>
               <p class="pub-meta">Chen C.-Y. et al. · <i>Solar RRL</i></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1002/solr.202500538" aria-label="Open publication: Round-Robin Interlaboratory Comparison">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1002/solr.202500538" aria-label="Open publication: Round-Robin Interlaboratory Comparison">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2022</span>
@@ -666,7 +691,7 @@
               <h3>Optically Encodable and Erasable Multilevel Nonvolatile Flexible Memory Device</h3>
               <p class="pub-meta">Mustaqeem M. et al. · <i>ACS Applied Materials & Interfaces</i></p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1021/acsami.2c02440" aria-label="Open publication: Optically Encodable and Erasable Memory Device">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1021/acsami.2c02440" aria-label="Open publication: Optically Encodable and Erasable Memory Device">DOI <span class="arr">↗</span></a>
           </article>
           <article class="publication" data-kind="collab">
             <span class="pub-year">2021</span>
@@ -674,7 +699,7 @@
               <h3>Generation of Silver Metal Nanocluster Random Lasing</h3>
               <p class="pub-meta">Wang C.-C. et al. · <i>ACS Photonics</i>, 8 (10), 3051–3060</p>
             </div>
-            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c01065" aria-label="Open publication: Silver Metal Nanocluster Random Lasing">DOI ↗</a>
+            <a class="pub-link" href="https://doi.org/10.1021/acsphotonics.1c01065" aria-label="Open publication: Silver Metal Nanocluster Random Lasing">DOI <span class="arr">↗</span></a>
           </article>
         </div>
 
@@ -1009,6 +1034,30 @@
           cardEl.style.transform=`perspective(750px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-3px)`;
         });
         cardEl.addEventListener('mouseleave',()=>{cardEl.style.transform=''});
+      });
+    }
+
+    /* cursor spotlight follows the pointer across cards */
+    if(matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('.card,.skill,.reference,.award').forEach(el=>{
+        el.addEventListener('pointermove',event=>{
+          const r=el.getBoundingClientRect();
+          el.style.setProperty('--mx',(event.clientX-r.left)+'px');
+          el.style.setProperty('--my',(event.clientY-r.top)+'px');
+        },{passive:true});
+      });
+    }
+
+    /* magnetic primary buttons lean toward the cursor */
+    if(!reduced&&matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('.btn-primary').forEach(btn=>{
+        btn.addEventListener('pointermove',event=>{
+          const r=btn.getBoundingClientRect();
+          const dx=(event.clientX-r.left-r.width/2)/r.width;
+          const dy=(event.clientY-r.top-r.height/2)/r.height;
+          btn.style.transform=`translate(${(dx*7).toFixed(1)}px,${(dy*5-2).toFixed(1)}px)`;
+        },{passive:true});
+        btn.addEventListener('pointerleave',()=>{btn.style.transform=''});
       });
     }
 
