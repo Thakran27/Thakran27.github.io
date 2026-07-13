@@ -153,9 +153,9 @@
     .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:27px;box-shadow:0 1px 1px rgba(35,22,90,.03);transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
     .card:hover{transform:translateY(-3px);border-color:#cfc4f5;box-shadow:var(--shadow-sm)}
     /* cursor spotlight on light cards */
-    .card,.skill,.reference,.award{position:relative}
-    .card:before,.skill:before,.reference:before,.award:before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s ease;pointer-events:none;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(124,99,255,.13),transparent 65%)}
-    .card:hover:before,.skill:hover:before,.reference:hover:before,.award:hover:before{opacity:1}
+    .card,.skill,.award{position:relative}
+    .card:before,.skill:before,.award:before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s ease;pointer-events:none;background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%),rgba(124,99,255,.13),transparent 65%)}
+    .card:hover:before,.skill:hover:before,.award:hover:before{opacity:1}
     .card h3{margin:0 0 10px;font-family:var(--display);font-size:1.1rem;line-height:1.35;font-weight:700}
     .tag{display:inline-block;background:var(--violet-soft);color:var(--violet-deep);border:1px solid #ddd3fb;border-radius:999px;padding:5px 12px;margin:4px 4px 4px 0;font-family:var(--label);font-size:.78rem;font-weight:600;transition:transform .15s ease,background .15s ease}
     .tag:hover{transform:translateY(-2px);background:#e6ddff}
@@ -301,21 +301,15 @@
     .quote .qw:hover{transform:translateY(-7px) rotate(-2.5deg)}
 
     /* ---------- contact ---------- */
-    .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
     .contact-card{background:
       radial-gradient(420px 300px at 90% 0%,rgba(124,99,255,.4),transparent 60%),
       radial-gradient(360px 260px at 0% 100%,rgba(255,92,57,.25),transparent 60%),
-      linear-gradient(145deg,#151036,#241a4d);color:white;border-radius:18px;padding:32px}
+      linear-gradient(145deg,#151036,#241a4d);color:white;border-radius:18px;padding:32px;max-width:640px}
     .contact-card h3{font-family:var(--display);font-size:1.25rem;font-weight:800}
     .contact-card a{color:#c4b8ff}
     .copy-btn{font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;margin-left:10px;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#e6e0ff;cursor:pointer;transition:background .18s ease,border-color .18s ease}
     .copy-btn:hover{background:rgba(255,255,255,.12)}
     .copy-btn.done{border-color:#7ee2b8;color:#7ee2b8}
-    .references{display:grid;gap:14px}
-    .reference{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;transition:transform .2s ease,box-shadow .2s ease}
-    .reference:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
-    .reference h3{font-family:var(--display);margin:0 0 5px;font-weight:700;font-size:1rem}
-    .reference p{color:var(--muted)}
     footer{background:#120d2e;color:#c9c2e8;padding:44px 0 26px;font-size:.92rem;border-top:3px solid;border-image:var(--grad) 1}
     .footer-grid{display:grid;grid-template-columns:1.2fr 1fr auto;gap:28px;align-items:start;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:20px}
     .brand-footer{color:#fff}
@@ -346,7 +340,7 @@
       .links.open{display:flex}
       .links a{width:100%;padding:5px 0}
       .links a:after{display:none}
-      .grid-2,.feature,.skill-rows,.skills-grid,.award-list,.contact-grid{grid-template-columns:1fr}
+      .grid-2,.feature,.skill-rows,.skills-grid,.award-list{grid-template-columns:1fr}
       .stats{grid-template-columns:repeat(2,1fr);gap:1px}
       .hero{min-height:620px}
       .hero-atom{opacity:.32;right:-140px}
@@ -384,11 +378,11 @@
       html{scroll-behavior:auto}
       .hero-content{animation:none}
       .reveal,.jitem.left.reveal,.jitem.right.reveal{opacity:1;transform:none;transition:none}
-      .btn,.card,.photo-card,.publication,.skill,.award,.reference,.tag,.jitem,.fbtn,.pub-link,.links a:after{transition:none}
+      .btn,.card,.photo-card,.publication,.skill,.award,.tag,.jitem,.fbtn,.pub-link,.links a:after{transition:none}
       .section-title:after{transform:scaleX(1);transition:none}
       .bar i{transition:none}
       .hero-atom .orbit,.ph-ray,.carrier-e,.carrier-h,.caret,.flow-path,.bub,.wing-sway,.jitem.now:before,.ticker-track,.wheel:after,.pop{animation:none}
-      .award:after,.brand-atom,.lvl .pct,.quote .qw,.stat,.ticker a,.footer-links a,.footer-social a,.award svg,.pub-link .arr,.card:before,.skill:before,.reference:before,.award:before{transition:none}
+      .award:after,.brand-atom,.lvl .pct,.quote .qw,.stat,.ticker a,.footer-links a,.footer-social a,.award svg,.pub-link .arr,.card:before,.skill:before,.award:before{transition:none}
       .dark:after{animation:none}
       .carrier-e,.carrier-h,.ph-ray{opacity:0}
       .progress{display:none}
@@ -879,16 +873,10 @@
           <h2 class="section-title">Let’s connect ideas.</h2>
           <p>If you’d like to discuss research, ideas, or collaborations, feel free to reach out.</p>
         </div>
-        <div class="contact-grid">
-          <div class="contact-card">
-            <h3>Dr. Anjali Thakran</h3>
-            <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
-            <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
-          </div>
-          <div class="references">
-            <div class="reference"><h3>Prof. Chih Wei Chu</h3><p>Thesis Advisor · Research Center for Applied Sciences, Academia Sinica, Nangang</p><a href="mailto:gchu@gate.sinica.edu.tw">gchu@gate.sinica.edu.tw</a></div>
-            <div class="reference"><h3>Prof. Mario Hofmann</h3><p>Co-advisor · Department of Physics, National Taiwan University</p><a href="mailto:mario@phys.ntu.edu.tw">mario@phys.ntu.edu.tw</a></div>
-          </div>
+        <div class="contact-card">
+          <h3>Dr. Anjali Thakran</h3>
+          <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
+          <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
         </div>
       </div>
     </section>
@@ -968,7 +956,7 @@
     }
 
     /* scroll-reveal with per-container stagger */
-    const revealItems=document.querySelectorAll('main .section-head,main .card,main .jitem,main .feature,main .publication,main .award,main .photo-card,main .contact-card,main .reference,main .skill');
+    const revealItems=document.querySelectorAll('main .section-head,main .card,main .jitem,main .feature,main .publication,main .award,main .photo-card,main .contact-card,main .skill');
     const staggerCount=new Map();
     revealItems.forEach(item=>{
       const parent=item.parentElement,idx=staggerCount.get(parent)||0;
@@ -1039,7 +1027,7 @@
 
     /* cursor spotlight follows the pointer across cards */
     if(matchMedia('(hover:hover)').matches){
-      document.querySelectorAll('.card,.skill,.reference,.award').forEach(el=>{
+      document.querySelectorAll('.card,.skill,.award').forEach(el=>{
         el.addEventListener('pointermove',event=>{
           const r=el.getBoundingClientRect();
           el.style.setProperty('--mx',(event.clientX-r.left)+'px');
