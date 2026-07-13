@@ -165,6 +165,7 @@
       radial-gradient(560px 400px at 6% 92%,rgba(255,92,57,.2),transparent 60%),
       linear-gradient(135deg,#151036,#1d1547)}
     .dark .section-head p{color:#c9c2e8}
+    .dark .eyebrow{color:#a48fff}
     /* drifting star dust in dark sections */
     .dark:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.9;
       background-image:
@@ -301,12 +302,15 @@
     .quote .qw:hover{transform:translateY(-7px) rotate(-2.5deg)}
 
     /* ---------- contact ---------- */
-    .contact-card{background:
-      radial-gradient(420px 300px at 90% 0%,rgba(124,99,255,.4),transparent 60%),
-      radial-gradient(360px 260px at 0% 100%,rgba(255,92,57,.25),transparent 60%),
-      linear-gradient(145deg,#151036,#241a4d);color:white;border-radius:18px;padding:32px;max-width:640px}
-    .contact-card h3{font-family:var(--display);font-size:1.25rem;font-weight:800}
-    .contact-card a{color:#c4b8ff}
+    .contact-card{background:rgba(255,255,255,.06);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:48px;max-width:760px}
+    .contact-grid{display:grid;gap:32px}
+    .contact-method{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+    .contact-icon{font-size:2rem;height:48px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);border-radius:12px;flex-shrink:0}
+    .contact-content{display:flex;flex-direction:column;gap:12px}
+    .contact-label{font-family:var(--label);font-size:.85rem;font-weight:600;letter-spacing:.08em;color:#a48fff;text-transform:uppercase}
+    .contact-card a{color:#c4b8ff;text-decoration:none;transition:color .18s ease}
+    .contact-card a:hover{color:#ffb85c}
+    .contact-card p{margin:0;font-size:.95rem;line-height:1.6;color:#e6e0ff}
     .copy-btn{font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;margin-left:10px;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#e6e0ff;cursor:pointer;transition:background .18s ease,border-color .18s ease}
     .copy-btn:hover{background:rgba(255,255,255,.12)}
     .copy-btn.done{border-color:#7ee2b8;color:#7ee2b8}
@@ -372,6 +376,7 @@
       .pub-link{justify-self:start}
       .photo-grid{grid-template-columns:1fr}
       .contact-card{padding:26px}
+      .contact-method{gap:16px}
       .to-top{right:14px;bottom:14px}
     }
     @media(prefers-reduced-motion:reduce){
@@ -762,14 +767,7 @@
       </div>
     </section>
 
-    <section class="dark">
-      <div class="wrap">
-        <p class="quote">“I fail, I learn, I try again.”</p>
-        <p style="max-width:720px;color:#c9c2e8">I believe this is the rhythm of science, and as a woman in research, persistence is my greatest experiment.</p>
-      </div>
-    </section>
-
-    <section id="awards">
+    <section id=”awards”>
       <div class="wrap">
         <div class="section-head">
           <span class="sec-num">06</span>
@@ -865,19 +863,47 @@
       </div>
     </section>
 
-    <section id="contact" style="background:#f0edf9">
+    <section class="dark" id="contact">
       <div class="wrap">
         <div class="section-head">
           <span class="sec-num">07</span>
-          <div class="eyebrow" style="color:var(--violet)">Contact</div>
+          <div class="eyebrow">Contact</div>
           <h2 class="section-title">Let’s connect ideas.</h2>
           <p>If you’d like to discuss research, ideas, or collaborations, feel free to reach out.</p>
         </div>
         <div class="contact-card">
-          <h3>Dr. Anjali Thakran</h3>
-          <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
-          <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
+          <div class="contact-grid">
+            <div class="contact-method">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-content">
+                <span class="contact-label">Email</span>
+                <a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a>
+                <button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-icon">📍</div>
+              <div class="contact-content">
+                <span class="contact-label">Office</span>
+                <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-icon">🔗</div>
+              <div class="contact-content">
+                <span class="contact-label">Connect</span>
+                <a href="https://linkedin.com/in/anjali1997" aria-label="LinkedIn profile">LinkedIn</a> · <a href="https://github.com/Thakran27" aria-label="GitHub profile">GitHub</a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="dark" style="padding:64px 0">
+      <div class="wrap" style="text-align:center">
+        <p class="quote">"I fail, I learn, I try again."</p>
+        <p style="max-width:720px;color:#c9c2e8;margin:0 auto">I believe this is the rhythm of science, and as a woman in research, persistence is my greatest experiment.</p>
       </div>
     </section>
   </main>
