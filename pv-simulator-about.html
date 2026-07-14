@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive PV Cell Simulator — An educational tool for understanding photovoltaic physics. Explore V-I curves, P-V curves, and the single-diode model with real-time parameter control.">
+  <title>PV Cell Simulator — Interactive Solar Physics Tool</title>
+  <style>
+    :root {
+      --ink: #17123a;
+      --muted: #5f5a7d;
+      --paper: #f7f5fb;
+      --surface: #ffffff;
+      --solar: #ff8c00;
+      --solar-light: #ffe4d0;
+      --violet: #5f45e8;
+      --violet-soft: #efeaff;
+      --blue: #1a3a52;
+      --line: #e6e2f4;
+      --grad: linear-gradient(92deg, #7c63ff, #ff6a3d);
+      --display: "Plus Jakarta Sans", Arial, sans-serif;
+      --sans: "Manrope", Arial, sans-serif;
+      --label: "Space Grotesk", monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0f0b26;
+        --surface: #1a1547;
+        --ink: #f7f5fb;
+        --muted: #b8b0dd;
+        --blue: #4a7fa8;
+        --line: #2c2159;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); line-height: 1.1; margin: 0 0 0.5rem; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); line-height: 1.15; margin: 2rem 0 1rem; }
+    h3 { font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.75rem; }
+
+    a { color: var(--violet); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { width: min(1200px, calc(100% - 48px)); margin: auto; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--ink) 100%);
+      color: white;
+      padding: 60px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 140, 0, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .header-label {
+      font-family: var(--label);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .header-content h1 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .header-content p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.7;
+      margin: 0 0 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-family: var(--display);
+      text-decoration: none;
+      cursor: pointer;
+      border: 0;
+      font-size: 0.95rem;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(92deg, #ff8c00, #ff6a3d);
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(255, 140, 0, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Main */
+    main { padding: 80px 0; }
+    section { padding: 80px 0; border-top: 1px solid var(--line); }
+    section:first-of-type { border-top: 0; }
+
+    .section-label {
+      font-family: var(--label);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--solar);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Features Grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.2s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--solar);
+      box-shadow: 0 8px 24px rgba(255, 140, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      color: var(--ink);
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.8;
+    }
+
+    /* Use Cases */
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .use-case {
+      background: var(--paper);
+      padding: 24px;
+      border-radius: 12px;
+      border-left: 4px solid var(--solar);
+    }
+
+    .use-case h4 {
+      margin: 0 0 0.5rem;
+      color: var(--ink);
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .use-case p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Specs */
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .spec-group h4 {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      color: var(--ink);
+      margin: 0 0 1.5rem;
+      font-weight: 700;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spec-list li {
+      font-size: 0.95rem;
+      color: var(--muted);
+      padding-left: 28px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .spec-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--solar);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* Highlight */
+    .highlight {
+      background: var(--violet-soft);
+      border: 1px solid rgba(95, 69, 232, 0.3);
+      border-radius: 16px;
+      padding: 48px;
+      margin: 60px 0;
+      text-align: center;
+    }
+
+    .highlight h2 {
+      color: var(--violet);
+      margin-top: 0;
+    }
+
+    .highlight p {
+      color: var(--muted);
+      max-width: 600px;
+      margin: 1rem auto 2rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: var(--label);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--solar);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--solar) 0%, rgba(255, 140, 0, 0.8) 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 60px 48px;
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-top: 0;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.95);
+      max-width: 600px;
+      margin: 1rem auto 2rem;
+      font-size: 1.05rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: white;
+      padding: 60px 0 40px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-content h4 {
+      margin: 0 0 1rem;
+      font-family: var(--display);
+      font-weight: 700;
+      color: white;
+    }
+
+    .footer-content p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--solar);
+    }
+
+    .footer-credit {
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .specs { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; }
+      .header-content h1 { font-size: 2rem; }
+      .highlight { padding: 32px 24px; }
+      .cta-section { padding: 40px 24px; }
+      section { padding: 48px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-content">
+      <div class="header-label">Open-Source Educational Tool</div>
+      <h1>Interactive PV Cell Simulator</h1>
+      <p>Explore photovoltaic physics in real time. Adjust temperature, irradiance, and resistance to see how solar cells respond. Designed for students, educators, and researchers learning semiconductor device behavior.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="https://thakran27.github.io/pv-simulator/" class="btn btn-primary">Launch Simulator →</a>
+        <a href="https://github.com/Thakran27/Thakran27.github.io/tree/main/pv-simulator" class="btn btn-secondary">View on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- What It Does -->
+    <section>
+      <div class="wrap">
+        <div class="section-label">Interactive Features</div>
+        <h2>See Solar Physics Come Alive</h2>
+
+        <div class="features">
+          <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <h3>Real-Time Curves</h3>
+            <p>Watch V-I and P-V curves update instantly as you adjust parameters. See the operating point move across the curves and the maximum power point shift with changing conditions.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">🎚️</span>
+            <h3>Full Parameter Control</h3>
+            <p>Adjust irradiance (0–1200 W/m²), temperature (−40°C to +80°C), series resistance, and shunt resistance. Understand how each parameter affects cell performance.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <h3>Performance Metrics</h3>
+            <p>Display of Voc, Isc, Vmpp, Impp, Fill Factor, and maximum power. See how efficiency changes with environmental conditions and device parameters.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">🧪</span>
+            <h3>Multiple Presets</h3>
+            <p>Compare silicon, CdTe, and environmental scenarios (hot day, cloudy conditions). Understand material differences and real-world operating points.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">🔬</span>
+            <h3>Physics-Based Model</h3>
+            <p>Single-diode equivalent circuit with temperature-dependent calculations. Accurate representation of real PV cell behavior grounded in semiconductor device physics.</p>
+          </div>
+
+          <div class="feature-card">
+            <span class="feature-icon">📚</span>
+            <h3>Educational Content</h3>
+            <p>Parameter tooltips, circuit diagrams, mathematical equations, and guided learning paths. Designed by a researcher for maximum pedagogical value.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why It Matters -->
+    <div class="highlight">
+      <div class="wrap">
+        <h2>Why Learn PV Physics This Way?</h2>
+        <p>Traditional textbooks show static curves. This tool makes the relationship between conditions and performance <strong>immediately visible</strong>. You don't just learn that temperature affects voltage — you see it, feel it, understand it intuitively.</p>
+      </div>
+    </div>
+
+    <!-- Use Cases -->
+    <section>
+      <div class="wrap">
+        <div class="section-label">Who Benefits</div>
+        <h2>Designed for Multiple Audiences</h2>
+
+        <div class="use-cases">
+          <div class="use-case">
+            <h4>📚 Students</h4>
+            <p>Learn PV fundamentals through interactive exploration. See cause-and-effect relationships in real time. Develop intuition before diving into equations.</p>
+          </div>
+
+          <div class="use-case">
+            <h4>👨‍🏫 Educators</h4>
+            <p>Classroom demonstrations that engage students visually. Pre-lab tool for hands-on courses. Free, shareable, no installation required.</p>
+          </div>
+
+          <div class="use-case">
+            <h4>🔬 Researchers</h4>
+            <p>Quick parameter exploration and sensitivity analysis. Compare materials and understand device physics intuitively before detailed simulations.</p>
+          </div>
+
+          <div class="use-case">
+            <h4>⚙️ Engineers</h4>
+            <p>Build physical intuition for system design. Understand how cell parameters propagate to system-level performance. Educational foundation for optimization work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section>
+      <div class="wrap">
+        <div class="section-label">Technical Details</div>
+        <h2>Built on Solid Physics & Engineering</h2>
+
+        <div class="specs">
+          <div class="spec-group">
+            <h4>⚛️ Physics Model</h4>
+            <ul class="spec-list">
+              <li>Single-diode equivalent circuit (industry standard)</li>
+              <li>Newton-Raphson solver for implicit I-V relationship</li>
+              <li>Temperature-dependent bandgap and saturation current</li>
+              <li>Photocurrent scaling with irradiance and temperature</li>
+              <li>Series and shunt resistance effects</li>
+            </ul>
+          </div>
+
+          <div class="spec-group">
+            <h4>💻 Technology Stack</h4>
+            <ul class="spec-list">
+              <li>Pure HTML/CSS/JavaScript — no build process</li>
+              <li>Chart.js for real-time curve visualization</li>
+              <li>Responsive design (desktop, tablet, mobile)</li>
+              <li>Dark/light theme support</li>
+              <li>&lt;100ms curve update latency</li>
+            </ul>
+          </div>
+
+          <div class="spec-group">
+            <h4>📊 Outputs</h4>
+            <ul class="spec-list">
+              <li>V-I curves with operating point overlay</li>
+              <li>P-V curves with maximum power point</li>
+              <li>Performance metrics (6 key parameters)</li>
+              <li>Interactive circuit diagram</li>
+              <li>Real-time calculations as you adjust inputs</li>
+            </ul>
+          </div>
+
+          <div class="spec-group">
+            <h4>🎯 Parameters</h4>
+            <ul class="spec-list">
+              <li>Irradiance: 0–1200 W/m² (1000 = standard test)</li>
+              <li>Temperature: −40°C to +80°C</li>
+              <li>Series Resistance: 0–5 Ω·cm²</li>
+              <li>Shunt Resistance: 100–100,000 Ω·cm²</li>
+              <li>4 material presets (Si, CdTe, + conditions)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact -->
+    <section style="background: var(--paper);">
+      <div class="wrap">
+        <div class="section-label">Impact & Reach</div>
+        <h2>Accessible Physics for Everyone</h2>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-value">∞</div>
+            <div class="stat-label">Free & Open</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Installation Steps</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">1500+</div>
+            <div class="stat-label">Lines of Code</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">&lt;100ms</div>
+            <div class="stat-label">Update Latency</div>
+          </div>
+        </div>
+
+        <p style="margin-top: 48px; text-align: center; color: var(--muted); max-width: 700px; margin-left: auto; margin-right: auto;">
+          A professional-grade educational tool that bridges the gap between textbook theory and practical understanding. No login, no cost, no barriers — just physics, instantly accessible.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <div class="wrap">
+        <h2>Ready to Explore?</h2>
+        <p>Launch the simulator and start experimenting with solar cell physics. Discover how temperature, light, and device properties shape performance.</p>
+        <a href="https://thakran27.github.io/pv-simulator/" class="btn btn-primary" style="background: white; color: #ff8c00; margin-top: 1rem;">
+          Open the Simulator →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-content">
+        <div>
+          <h4>PV Cell Simulator</h4>
+          <p>An interactive educational tool for understanding photovoltaic physics and solar cell behavior through real-time visualization and parameter exploration.</p>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="https://thakran27.github.io/pv-simulator/">Live Tool</a></li>
+            <li><a href="https://github.com/Thakran27/Thakran27.github.io/tree/main/pv-simulator">GitHub Repository</a></li>
+            <li><a href="https://thakran27.github.io/pv-simulator/#reference">Technical Docs</a></li>
+            <li><a href="https://thakran27.github.io/">Portfolio</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Author</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:anjalithakran83@gmail.com">Contact</a></li>
+            <li><a href="https://linkedin.com/in/anjali1997">LinkedIn</a></li>
+            <li><a href="https://github.com/Thakran27">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-credit">
+        © 2025 Dr. Anjali Thakran · Built with ⚡ physics · 🎓 education · 🔬 research
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
