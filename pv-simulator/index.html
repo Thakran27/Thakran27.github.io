@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive PV Cell Simulator - Educational tool for understanding photovoltaic cell behavior, V-I curves, P-V curves, and parameter effects on solar cell performance.">
+  <meta property="og:title" content="Interactive PV Cell Simulator">
+  <meta property="og:description" content="Explore solar cell physics through real-time visualization of V-I and P-V curves, performance metrics, and interactive parameter control.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thakran27.github.io/pv-simulator/">
+  <title>Interactive PV Cell Simulator</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="canonical" href="https://thakran27.github.io/pv-simulator/">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+  <style>
+    :root {
+      --ink: #17123a;
+      --ink-2: #241a4d;
+      --muted: #5f5a7d;
+      --paper: #f7f5fb;
+      --surface: #ffffff;
+      --violet: #5f45e8;
+      --violet-deep: #4632c8;
+      --violet-soft: #efeaff;
+      --coral: #ff5c39;
+      --coral-soft: #ffe9e2;
+      --amber: #ffb020;
+      --amber-soft: #fff3d9;
+      --orange-solar: #ff8c00;
+      --line: #e6e2f4;
+      --grad: linear-gradient(92deg, #7c63ff, #ff6a3d);
+      --shadow-sm: 0 8px 24px rgba(35, 22, 90, 0.09);
+      --shadow-md: 0 18px 48px rgba(35, 22, 90, 0.13);
+      --display: "Plus Jakarta Sans", Arial, sans-serif;
+      --sans: "Manrope", Arial, sans-serif;
+      --label: "Space Grotesk", "Manrope", monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0f0b26;
+        --surface: #1a1547;
+        --ink: #f7f5fb;
+        --muted: #b8b0dd;
+        --line: #2c2159;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a {
+      color: var(--violet-deep);
+      text-decoration: none;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      font-weight: 800;
+      letter-spacing: -0.012em;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      margin: 0 0 0.5rem;
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      line-height: 1.2;
+      margin: 1.5rem 0 0.8rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin: 0 0 0.8rem;
+      font-weight: 700;
+    }
+
+    .wrap {
+      width: min(1280px, calc(100% - 48px));
+      margin: auto;
+    }
+
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 245, 251, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(23, 18, 58, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .nav {
+        background: rgba(15, 11, 38, 0.92);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      min-height: 68px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--display);
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .brand b {
+      color: var(--orange-solar);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--violet-deep);
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #17123a 0%, #1c1250 50%, #341b60 100%);
+      color: white;
+      padding: 60px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-content {
+      max-width: 800px;
+    }
+
+    .header-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      opacity: 0.95;
+      margin: 0 0 1.5rem;
+    }
+
+    /* Main Container */
+    main {
+      padding: 40px 0;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    section.intro {
+      background: var(--paper);
+      padding: 40px 0 60px;
+    }
+
+    .section-title {
+      color: var(--violet-deep);
+      font-size: 0.8rem;
+      font-family: var(--label);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Simulator Container */
+    .simulator-container {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    /* Control Panel */
+    .control-panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+    }
+
+    .control-section {
+      margin-bottom: 28px;
+    }
+
+    .control-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .control-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .control-label label {
+      font-family: var(--display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .control-label .value {
+      font-family: var(--label);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--orange-solar);
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .control-label .unit {
+      font-family: var(--label);
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--line);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--orange-solar);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.5);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--orange-solar);
+      cursor: pointer;
+      border: 0;
+      box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.5);
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .preset-btn {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      font-family: var(--label);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--violet-deep);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .preset-btn:hover {
+      background: var(--violet-soft);
+      border-color: var(--violet-deep);
+      transform: translateY(-2px);
+    }
+
+    .preset-btn.active {
+      background: linear-gradient(92deg, #ff8c00, #ff6a3d);
+      color: white;
+      border-color: transparent;
+    }
+
+    /* Help Icon & Tooltip */
+    .help-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--violet-soft);
+      color: var(--violet-deep);
+      font-family: var(--label);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: help;
+      position: relative;
+      margin-left: 6px;
+    }
+
+    .help-icon:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ink);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      z-index: 100;
+      font-weight: 500;
+      margin-bottom: 8px;
+      pointer-events: none;
+    }
+
+    /* Visualization Panel */
+    .visualization-panel {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .chart-container {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .chart-title {
+      font-family: var(--display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chart-canvas {
+      width: 100%;
+      height: 280px;
+      position: relative;
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .metric-card:hover {
+      border-color: var(--orange-solar);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-value {
+      font-family: var(--label);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--orange-solar);
+      margin: 6px 0;
+    }
+
+    .metric-label {
+      font-family: var(--label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .metric-unit {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Circuit Diagram */
+    .circuit-diagram {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .circuit-svg {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+    }
+
+    .circuit-label {
+      font-family: var(--label);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* Info Section */
+    .info-section {
+      background: var(--violet-soft);
+      border: 1px solid rgba(95, 69, 232, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .info-section p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    .info-section strong {
+      color: var(--violet-deep);
+      font-weight: 700;
+    }
+
+    /* Reference Section */
+    .reference-section {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      padding: 40px 0;
+      margin-top: 60px;
+    }
+
+    .equation-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-family: var(--label);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+
+    .equation-box code {
+      background: rgba(95, 69, 232, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--violet-deep);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--ink);
+      color: white;
+      padding: 40px 0 20px;
+      border-top: 1px solid var(--line);
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    footer a:hover {
+      color: var(--orange-solar);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-credit {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .simulator-container {
+        grid-template-columns: 1fr;
+      }
+
+      .control-panel {
+        position: static;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        width: calc(100% - 24px);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .presets {
+        grid-template-columns: 1fr;
+      }
+
+      .simulator-container {
+        gap: 16px;
+      }
+
+      .chart-container {
+        padding: 12px;
+      }
+
+      .chart-canvas {
+        height: 240px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 64 64" width="24" height="24" style="flex: 0 0 auto;">
+          <circle cx="32" cy="32" r="9" fill="#ff8c00"/>
+          <circle cx="32" cy="32" r="26" fill="none" stroke="#5f45e8" stroke-width="3" opacity="0.6"/>
+          <circle cx="51" cy="20" r="5" fill="#5f45e8"/>
+        </svg>
+        PV<b>Simulator</b>
+      </a>
+      <div class="nav-links">
+        <a href="/">← Back to Portfolio</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="wrap header-content">
+      <h1>Interactive PV Cell Simulator</h1>
+      <p>Explore how photovoltaic cell parameters affect solar cell performance. Adjust irradiance, temperature, and resistances to see real-time changes in V-I and P-V curves.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="wrap">
+        <p style="font-size: 1.05rem; color: var(--muted); max-width: 700px;">
+          This tool demonstrates the <strong>single-diode model</strong> of photovoltaic cells — a foundational concept in solar energy research. Learn how environmental conditions and device parameters influence cell behavior.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-title">Simulator</div>
+        <h2>Parameter Control & Real-Time Analysis</h2>
+
+        <div class="simulator-container">
+          <!-- Control Panel -->
+          <div class="control-panel">
+            <h3 style="margin-top: 0;">Quick Presets</h3>
+            <div class="presets">
+              <button class="preset-btn active" data-preset="standard">Standard Si</button>
+              <button class="preset-btn" data-preset="high-temp">Hot Day</button>
+              <button class="preset-btn" data-preset="low-irr">Cloudy</button>
+              <button class="preset-btn" data-preset="cdte">CdTe</button>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid var(--line); margin: 24px 0;">
+
+            <div class="control-section">
+              <div class="control-label">
+                <label>
+                  Irradiance
+                  <span class="help-icon" data-tooltip="Solar power density: 1000 W/m² is standard test condition (STC)">?</span>
+                </label>
+                <div>
+                  <span class="value" id="val-G">1000</span>
+                  <span class="unit">W/m²</span>
+                </div>
+              </div>
+              <input type="range" id="input-G" min="0" max="1200" value="1000" step="10">
+            </div>
+
+            <div class="control-section">
+              <div class="control-label">
+                <label>
+                  Temperature
+                  <span class="help-icon" data-tooltip="Cell temperature affects voltage and current">?</span>
+                </label>
+                <div>
+                  <span class="value" id="val-T">25</span>
+                  <span class="unit">°C</span>
+                </div>
+              </div>
+              <input type="range" id="input-T" min="-40" max="80" value="25" step="1">
+            </div>
+
+            <div class="control-section">
+              <div class="control-label">
+                <label>
+                  Series Resistance
+                  <span class="help-icon" data-tooltip="Reduces current at high power output">?</span>
+                </label>
+                <div>
+                  <span class="value" id="val-Rs">0.5</span>
+                  <span class="unit">Ω</span>
+                </div>
+              </div>
+              <input type="range" id="input-Rs" min="0" max="5" value="0.5" step="0.1">
+            </div>
+
+            <div class="control-section">
+              <div class="control-label">
+                <label>
+                  Shunt Resistance
+                  <span class="help-icon" data-tooltip="Higher is better - leakage current reduces output">?</span>
+                </label>
+                <div>
+                  <span class="value" id="val-Rsh">10000</span>
+                  <span class="unit">Ω</span>
+                </div>
+              </div>
+              <input type="range" id="input-Rsh" min="100" max="100000" value="10000" step="100">
+            </div>
+
+            <div class="info-section">
+              <p><strong>💡 Quick Tip:</strong> Standard Test Condition (STC) is 1000 W/m² and 25°C. Try adjusting temperature to see how it affects Voc (voltage).</p>
+            </div>
+          </div>
+
+          <!-- Visualization Panel -->
+          <div class="visualization-panel">
+            <!-- V-I Curve -->
+            <div class="chart-container">
+              <h4 class="chart-title">
+                <span>Voltage-Current (V-I) Curve</span>
+              </h4>
+              <div class="chart-canvas">
+                <canvas id="chart-vi"></canvas>
+              </div>
+            </div>
+
+            <!-- P-V Curve -->
+            <div class="chart-container">
+              <h4 class="chart-title">
+                <span>Power-Voltage (P-V) Curve</span>
+              </h4>
+              <div class="chart-canvas">
+                <canvas id="chart-pv"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metrics -->
+        <div style="margin-top: 28px;">
+          <h3 style="margin-bottom: 16px;">Performance Metrics</h3>
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Open Circuit Voltage</div>
+              <div class="metric-value" id="metric-voc">0.00</div>
+              <div class="metric-unit">V</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Short Circuit Current</div>
+              <div class="metric-value" id="metric-isc">0.00</div>
+              <div class="metric-unit">A/cm²</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Maximum Power Point</div>
+              <div class="metric-value" id="metric-pmax">0.00</div>
+              <div class="metric-unit">W/cm²</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Voltage @ MPP</div>
+              <div class="metric-value" id="metric-vmpp">0.00</div>
+              <div class="metric-unit">V</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Current @ MPP</div>
+              <div class="metric-value" id="metric-impp">0.00</div>
+              <div class="metric-unit">A/cm²</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Fill Factor</div>
+              <div class="metric-value" id="metric-ff">0.00</div>
+              <div class="metric-unit">%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Circuit Diagram -->
+        <div style="margin-top: 28px;">
+          <h3>Single-Diode Equivalent Circuit</h3>
+          <div class="circuit-diagram">
+            <svg class="circuit-svg" viewBox="0 0 500 120" preserveAspectRatio="xMidYMid meet">
+              <!-- Light source -->
+              <circle cx="30" cy="30" r="15" fill="none" stroke="#ff8c00" stroke-width="2"/>
+              <line x1="20" y1="20" x2="10" y2="10" stroke="#ff8c00" stroke-width="2"/>
+              <line x1="40" y1="20" x2="50" y2="10" stroke="#ff8c00" stroke-width="2"/>
+              <line x1="20" y1="40" x2="10" y2="50" stroke="#ff8c00" stroke-width="2"/>
+              <line x1="40" y1="40" x2="50" y2="50" stroke="#ff8c00" stroke-width="2"/>
+
+              <!-- Connection -->
+              <line x1="50" y1="30" x2="80" y2="30" stroke="#000" stroke-width="2"/>
+
+              <!-- Photocurrent source -->
+              <circle cx="100" cy="30" r="12" fill="none" stroke="#5f45e8" stroke-width="2"/>
+              <line x1="94" y1="30" x2="106" y2="30" stroke="#5f45e8" stroke-width="2"/>
+              <line x1="100" y1="24" x2="100" y2="36" stroke="#5f45e8" stroke-width="2"/>
+
+              <!-- Line to diode -->
+              <line x1="112" y1="30" x2="150" y2="30" stroke="#000" stroke-width="2"/>
+
+              <!-- Diode -->
+              <line x1="150" y1="20" x2="150" y2="40" stroke="#5f45e8" stroke-width="2"/>
+              <line x1="145" y1="30" x2="155" y2="30" stroke="#5f45e8" stroke-width="2"/>
+              <polygon points="155,20 155,40 165,30" fill="#5f45e8" opacity="0.3" stroke="#5f45e8" stroke-width="1"/>
+
+              <!-- Line to Rs -->
+              <line x1="165" y1="30" x2="200" y2="30" stroke="#000" stroke-width="2"/>
+
+              <!-- Series Resistance -->
+              <rect x="200" y="25" width="30" height="10" fill="none" stroke="#ff8c00" stroke-width="2" rx="2"/>
+              <text x="215" y="38" font-size="10" text-anchor="middle" fill="#ff8c00" font-family="monospace" font-weight="bold">Rs</text>
+
+              <!-- Line to Rsh -->
+              <line x1="230" y1="30" x2="270" y2="30" stroke="#000" stroke-width="2"/>
+              <line x1="270" y1="30" x2="270" y2="60" stroke="#000" stroke-width="2"/>
+
+              <!-- Shunt Resistance -->
+              <rect x="260" y="60" width="20" height="30" fill="none" stroke="#ff6a3d" stroke-width="2" rx="2"/>
+              <text x="270" y="85" font-size="10" text-anchor="middle" fill="#ff6a3d" font-family="monospace" font-weight="bold">Rsh</text>
+
+              <!-- Ground -->
+              <line x1="270" y1="90" x2="270" y2="100" stroke="#000" stroke-width="2"/>
+              <line x1="260" y1="100" x2="280" y2="100" stroke="#000" stroke-width="2"/>
+              <line x1="265" y1="105" x2="275" y2="105" stroke="#000" stroke-width="2"/>
+
+              <!-- Output terminals -->
+              <line x1="270" y1="30" x2="350" y2="30" stroke="#000" stroke-width="2"/>
+              <circle cx="360" cy="30" r="5" fill="none" stroke="#000" stroke-width="2"/>
+              <text x="365" y="35" font-size="11" fill="#000" font-family="monospace" font-weight="bold">+</text>
+
+              <line x1="270" y1="100" x2="350" y2="100" stroke="#000" stroke-width="2"/>
+              <circle cx="360" cy="100" r="5" fill="none" stroke="#000" stroke-width="2"/>
+              <text x="365" y="105" font-size="11" fill="#000" font-family="monospace" font-weight="bold">−</text>
+
+              <!-- Labels -->
+              <text x="30" y="60" font-size="10" text-anchor="middle" fill="#ff8c00" font-family="monospace">Photons</text>
+              <text x="100" y="60" font-size="10" text-anchor="middle" fill="#5f45e8" font-family="monospace">Iph</text>
+            </svg>
+            <div class="circuit-label">Single-diode model: Light generates current Iph, which flows through diode, resistances, and load</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reference Section -->
+    <section class="reference-section">
+      <div class="wrap">
+        <h2>Mathematical Foundation</h2>
+        <p style="max-width: 700px; color: var(--muted);">
+          The simulator uses the <strong>single-diode equivalent circuit model</strong>, which accurately describes real PV cell behavior:
+        </p>
+
+        <div class="equation-box">
+          <strong>Single-Diode Equation:</strong><br><br>
+          <code>I = Iph - Io(exp((V + I×Rs)/(n×Vt)) − 1) − (V + I×Rs)/Rsh</code><br><br>
+          <strong>Where:</strong><br>
+          • <code>I</code> = Cell current<br>
+          • <code>Iph</code> = Photocurrent (proportional to irradiance)<br>
+          • <code>Io</code> = Reverse saturation current (exponential in temperature)<br>
+          • <code>V</code> = Cell voltage<br>
+          • <code>Rs</code> = Series resistance (contact, grid, bulk)<br>
+          • <code>Rsh</code> = Shunt resistance (parallel leakage)<br>
+          • <code>n</code> = Diode ideality factor (~1.3)<br>
+          • <code>Vt</code> = Thermal voltage = k×T/q ≈ 0.026 V at 25°C
+        </div>
+
+        <div class="equation-box">
+          <strong>Key Parameters:</strong><br><br>
+          • <code>Voc</code> = Open-circuit voltage (V = 0)<br>
+          • <code>Isc</code> = Short-circuit current (V = 0)<br>
+          • <code>Pmax</code> = Maximum power = Vmpp × Impp<br>
+          • <code>FF</code> = Fill Factor = Pmax / (Voc × Isc) × 100%<br>
+          • <code>Efficiency</code> = Pmax / (G × Area) × 100%<br>
+        </div>
+
+        <h3>How to Use This Tool</h3>
+        <div style="max-width: 700px; line-height: 1.8;">
+          <p><strong>1. Start with Standard Conditions:</strong> Click "Standard Si" to set realistic values for a silicon solar cell under standard test conditions (1000 W/m², 25°C).</p>
+          <p><strong>2. Explore Irradiance:</strong> Move the irradiance slider to see how cloud cover or seasonal changes affect current (Isc) — notice voltage (Voc) changes minimally.</p>
+          <p><strong>3. Investigate Temperature:</strong> Increase temperature to observe how it reduces voltage — this is why solar panels perform worse on hot days despite higher irradiance.</p>
+          <p><strong>4. Study Resistance:</strong> Increase series resistance (Rs) to see power losses at high current. Decrease shunt resistance (Rsh) to simulate a defective cell.</p>
+          <p><strong>5. Compare Presets:</strong> Switch between materials (Si, CdTe) to understand how different bandgaps and materials affect V-I characteristics.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section style="background: var(--paper); padding: 40px 0;">
+      <div class="wrap">
+        <h2>About This Tool</h2>
+        <div style="max-width: 700px;">
+          <p>This interactive simulator is designed for:</p>
+          <ul style="color: var(--muted); line-height: 1.8;">
+            <li><strong>Students</strong> learning photovoltaic fundamentals and device physics</li>
+            <li><strong>Educators</strong> teaching solar energy courses and conducting demonstrations</li>
+            <li><strong>Researchers</strong> exploring parameter sensitivity and material comparisons</li>
+            <li><strong>Engineers</strong> gaining intuition for PV cell performance dependencies</li>
+          </ul>
+          <p style="color: var(--muted);">Built with accuracy and pedagogy in mind, using the well-established single-diode model from photovoltaic literature.</p>
+          <p style="color: var(--muted); font-size: 0.9rem;">
+            <strong>Disclaimer:</strong> This tool provides educational simulations. Real PV cells have more complex behavior including temperature coefficients, spectral response, and frequency-dependent effects not captured here. For engineering calculations, consult manufacturer datasheets and specialized software.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-content">
+        <div>
+          <h3 style="margin-top: 0; color: white;">PV Cell Simulator</h3>
+          <p style="margin: 8px 0 0; opacity: 0.8;">An interactive educational tool for understanding solar cell physics and performance.</p>
+        </div>
+        <div>
+          <p style="margin: 0; opacity: 0.8;"><a href="/">Dr. Anjali Thakran</a></p>
+          <p style="margin: 6px 0 0; font-size: 0.85rem; opacity: 0.6;">Part of the<br><a href="/">photovoltaic research</a> portfolio</p>
+        </div>
+      </div>
+      <div class="footer-credit">
+        © 2025 Dr. Anjali Thakran. Built for education and research.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // PV Cell Simulator - Single Diode Model Implementation
+    // Based on established photovoltaic physics and literature
+
+    const k = 1.380649e-23; // Boltzmann constant (J/K)
+    const q = 1.602176634e-19; // Elementary charge (C)
+    const T0 = 25 + 273.15; // Reference temperature (K)
+    const G0 = 1000; // Reference irradiance (W/m²)
+
+    // Cell parameters (silicon baseline)
+    const params = {
+      Voc0: 0.75, // Open circuit voltage at STC (V)
+      Isc0: 0.0425, // Short circuit current at STC (A/cm²)
+      alpha_Isc: 0.00043, // Temperature coefficient of Isc (%/K)
+      beta_Voc: -0.0026, // Temperature coefficient of Voc (V/K)
+      n: 1.3, // Ideality factor
+      Eg0: 1.12, // Bandgap energy at 0K (eV) - silicon
+      Rs: 0.5, // Series resistance (Ω·cm²)
+      Rsh: 10000, // Shunt resistance (Ω·cm²)
+    };
+
+    const presets = {
+      'standard': {
+        label: 'Silicon (Standard)',
+        Voc0: 0.75,
+        Isc0: 0.0425,
+        Eg0: 1.12,
+        alpha_Isc: 0.00043,
+        beta_Voc: -0.0026,
+        n: 1.3,
+      },
+      'high-temp': {
+        label: 'Hot Day Conditions',
+        // Same as standard but we just show different default inputs
+      },
+      'low-irr': {
+        label: 'Cloudy Conditions',
+      },
+      'cdte': {
+        label: 'CdTe (Cadmium Telluride)',
+        Voc0: 0.88,
+        Isc0: 0.019,
+        Eg0: 1.50,
+        alpha_Isc: 0.00035,
+        beta_Voc: -0.0022,
+        n: 1.25,
+      }
+    };
+
+    let currentPreset = 'standard';
+    let charts = {};
+
+    // Thermal voltage calculation
+    function Vt(T) {
+      return (k / q) * (T + 273.15); // Convert to Kelvin
+    }
+
+    // Bandgap temperature dependence
+    function Eg(T) {
+      const alpha = 4.73e-4; // eV/K
+      const beta = 636; // K
+      return params.Eg0 - alpha * (T + 273.15) ** 2 / ((T + 273.15) + beta);
+    }
+
+    // Temperature-dependent reverse saturation current
+    function Io_T(T) {
+      const Io_ref = 1e-12; // Reference at STC
+      const ratio = (T + 273.15) / T0;
+      const exp_factor = (q * (Eg(T0) - Eg(T))) / (params.n * k * (T + 273.15));
+      return Io_ref * (ratio ** 3) * Math.exp(exp_factor);
+    }
+
+    // Photocurrent calculation
+    function Iph(G, T) {
+      const Iph_ref = params.Isc0; // At STC
+      const G_ratio = G / G0;
+      const T_coeff = 1 + params.alpha_Isc * (T - 25);
+      return Iph_ref * G_ratio * T_coeff;
+    }
+
+    // Open circuit voltage
+    function Voc_calc(G, T) {
+      const Iph_val = Iph(G, T);
+      const Io = Io_T(T);
+      const Vt_val = Vt(T);
+      return params.n * Vt_val * Math.log(Iph_val / Io + 1);
+    }
+
+    // Single diode equation - implicit, solved numerically
+    function calculateCurrent(V, G, T) {
+      const Iph_val = Iph(G, T);
+      const Io = Io_T(T);
+      const Vt_val = Vt(T);
+
+      // Newton-Raphson iteration
+      let I = Iph_val * 0.9;
+      for (let iter = 0; iter < 50; iter++) {
+        const exp_arg = (V + I * params.Rs) / (params.n * Vt_val);
+        const exp_val = exp_arg > 500 ? 1e217 : Math.exp(exp_arg);
+        const f = Iph_val - Io * (exp_val - 1) - (V + I * params.Rs) / params.Rsh - I;
+        const df = -Io * (exp_val / (params.n * Vt_val)) - params.Rs / params.Rsh - 1;
+        I = I - f / df;
+        if (Math.abs(f) < 1e-10) break;
+      }
+      return Math.max(0, I);
+    }
+
+    // Generate V-I curve
+    function generateVI_Curve(G, T) {
+      const Voc = Voc_calc(G, T);
+      const points = [];
+      const steps = 150;
+
+      for (let i = 0; i <= steps; i++) {
+        const V = (i / steps) * Voc * 1.05;
+        const I = calculateCurrent(V, G, T);
+        points.push({ x: V, y: I });
+      }
+      return points;
+    }
+
+    // Generate P-V curve
+    function generatePV_Curve(G, T) {
+      const Voc = Voc_calc(G, T);
+      const points = [];
+      const steps = 150;
+
+      for (let i = 0; i <= steps; i++) {
+        const V = (i / steps) * Voc * 1.05;
+        const I = calculateCurrent(V, G, T);
+        const P = V * I;
+        points.push({ x: V, y: P });
+      }
+      return points;
+    }
+
+    // Find maximum power point
+    function findMPP(G, T) {
+      const Voc = Voc_calc(G, T);
+      let maxP = 0;
+      let Vmpp = 0,Impp = 0;
+
+      for (let i = 0; i <= 300; i++) {
+        const V = (i / 300) * Voc * 1.05;
+        const I = calculateCurrent(V, G, T);
+        const P = V * I;
+        if (P > maxP) {
+          maxP = P;
+          Vmpp = V;
+          Impp = I;
+        }
+      }
+      return { Vmpp, Impp, Pmax: maxP };
+    }
+
+    // Calculate metrics
+    function calculateMetrics(G, T) {
+      const Iph_val = Iph(G, T);
+      const Voc = Voc_calc(G, T);
+      const Isc = Iph_val; // Current at V=0
+      const { Vmpp, Impp, Pmax } = findMPP(G, T);
+      const FF = (Pmax / (Voc * Isc)) * 100;
+
+      return {
+        Voc: Voc.toFixed(3),
+        Isc: Isc.toFixed(4),
+        Vmpp: Vmpp.toFixed(3),
+        Impp: Impp.toFixed(4),
+        Pmax: Pmax.toFixed(4),
+        FF: FF.toFixed(1),
+      };
+    }
+
+    // Update charts and metrics
+    function updateSimulator() {
+      const G = parseFloat(document.getElementById('input-G').value);
+      const T = parseFloat(document.getElementById('input-T').value);
+      const Rs = parseFloat(document.getElementById('input-Rs').value);
+      const Rsh = parseFloat(document.getElementById('input-Rsh').value);
+
+      params.Rs = Rs;
+      params.Rsh = Rsh;
+
+      // Generate curves
+      const viData = generateVI_Curve(G, T);
+      const pvData = generatePV_Curve(G, T);
+      const metrics = calculateMetrics(G, T);
+      const mpp = findMPP(G, T);
+
+      // Update display values
+      document.getElementById('val-G').textContent = G.toFixed(0);
+      document.getElementById('val-T').textContent = T.toFixed(0);
+      document.getElementById('val-Rs').textContent = Rs.toFixed(1);
+      document.getElementById('val-Rsh').textContent = Rsh.toFixed(0);
+
+      // Update metrics
+      document.getElementById('metric-voc').textContent = metrics.Voc;
+      document.getElementById('metric-isc').textContent = metrics.Isc;
+      document.getElementById('metric-vmpp').textContent = metrics.Vmpp;
+      document.getElementById('metric-impp').textContent = metrics.Impp;
+      document.getElementById('metric-pmax').textContent = metrics.Pmax;
+      document.getElementById('metric-ff').textContent = metrics.FF;
+
+      // Update V-I chart
+      if (charts.vi) {
+        charts.vi.data.datasets[0].data = viData;
+        charts.vi.data.datasets[1].data = [{ x: mpp.Vmpp, y: mpp.Impp }];
+        charts.vi.update('none');
+      }
+
+      // Update P-V chart
+      if (charts.pv) {
+        charts.pv.data.datasets[0].data = pvData;
+        charts.pv.data.datasets[1].data = [{ x: mpp.Vmpp, y: mpp.Pmax }];
+        charts.pv.update('none');
+      }
+    }
+
+    // Initialize charts
+    function initializeCharts() {
+      const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            mode: 'index',
+            intersect: false,
+            callbacks: {
+              label: function(context) {
+                if (context.datasetIndex === 0) {
+                  return `V: ${context.parsed.x.toFixed(3)}V, I: ${context.parsed.y.toFixed(4)}A/cm²`;
+                } else {
+                  return `MPP`;
+                }
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            min: 0,
+            ticks: { font: { family: "'Space Grotesk', monospace", size: 10 } }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: { font: { family: "'Space Grotesk', monospace", size: 10 } }
+          }
+        }
+      };
+
+      // V-I Chart
+      const ctxVI = document.getElementById('chart-vi');
+      charts.vi = new Chart(ctxVI, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'V-I Curve',
+              data: [],
+              borderColor: '#5f45e8',
+              backgroundColor: 'rgba(95, 69, 232, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              pointRadius: 0,
+              tension: 0,
+              segment: { borderColor: '#5f45e8' }
+            },
+            {
+              label: 'Operating Point',
+              data: [],
+              pointRadius: 8,
+              pointBackgroundColor: '#ff5c39',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              showLine: false
+            }
+          ]
+        },
+        options: {
+          ...chartOptions,
+          scales: {
+            ...chartOptions.scales,
+            x: { ...chartOptions.scales.x, title: { display: true, text: 'Voltage (V)', font: { weight: 'bold' } } },
+            y: { ...chartOptions.scales.y, title: { display: true, text: 'Current (A/cm²)', font: { weight: 'bold' } } }
+          }
+        }
+      });
+
+      // P-V Chart
+      const ctxPV = document.getElementById('chart-pv');
+      charts.pv = new Chart(ctxPV, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'P-V Curve',
+              data: [],
+              borderColor: '#ff8c00',
+              backgroundColor: 'rgba(255, 140, 0, 0.1)',
+              borderWidth: 3,
+              fill: true,
+              pointRadius: 0,
+              tension: 0
+            },
+            {
+              label: 'Maximum Power Point',
+              data: [],
+              pointRadius: 8,
+              pointBackgroundColor: '#ff5c39',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              showLine: false
+            }
+          ]
+        },
+        options: {
+          ...chartOptions,
+          scales: {
+            ...chartOptions.scales,
+            x: { ...chartOptions.scales.x, title: { display: true, text: 'Voltage (V)', font: { weight: 'bold' } } },
+            y: { ...chartOptions.scales.y, title: { display: true, text: 'Power (W/cm²)', font: { weight: 'bold' } } }
+          }
+        }
+      });
+    }
+
+    // Event listeners
+    document.getElementById('input-G').addEventListener('input', updateSimulator);
+    document.getElementById('input-T').addEventListener('input', updateSimulator);
+    document.getElementById('input-Rs').addEventListener('input', updateSimulator);
+    document.getElementById('input-Rsh').addEventListener('input', updateSimulator);
+
+    // Preset buttons
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const preset = this.dataset.preset;
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        if (preset === 'standard') {
+          document.getElementById('input-G').value = 1000;
+          document.getElementById('input-T').value = 25;
+          Object.assign(params, presets.standard);
+        } else if (preset === 'high-temp') {
+          document.getElementById('input-G').value = 900;
+          document.getElementById('input-T').value = 55;
+          Object.assign(params, presets.standard);
+        } else if (preset === 'low-irr') {
+          document.getElementById('input-G').value = 400;
+          document.getElementById('input-T').value = 20;
+          Object.assign(params, presets.standard);
+        } else if (preset === 'cdte') {
+          document.getElementById('input-G').value = 1000;
+          document.getElementById('input-T').value = 25;
+          Object.assign(params, presets.cdte);
+        }
+
+        updateSimulator();
+      });
+    });
+
+    // Initialize on load
+    window.addEventListener('load', () => {
+      initializeCharts();
+      updateSimulator();
+    });
+
+    // Ensure responsive updates
+    window.addEventListener('resize', () => {
+      if (charts.vi) charts.vi.resize();
+      if (charts.pv) charts.pv.resize();
+    });
+  </script>
+</body>
+</html>
