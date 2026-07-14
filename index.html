@@ -284,23 +284,12 @@
     .contact-card{position:relative;overflow:hidden;background:
       radial-gradient(560px 360px at 100% 0%,rgba(124,99,255,.42),transparent 64%),
       radial-gradient(440px 320px at 0% 100%,rgba(255,92,57,.24),transparent 64%),
-      linear-gradient(145deg,#151036,#241a4d);color:white;border:1px solid rgba(255,255,255,.12);border-radius:22px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);max-width:none;box-shadow:0 24px 60px rgba(33,22,82,.2)}
+      linear-gradient(145deg,#151036,#241a4d);color:white;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:38px 42px;max-width:none;box-shadow:0 24px 60px rgba(33,22,82,.2)}
     .contact-card:after{content:"";position:absolute;width:260px;height:260px;right:-105px;top:-125px;border:1px solid rgba(255,255,255,.14);border-radius:50%;box-shadow:0 0 0 34px rgba(255,255,255,.035),0 0 0 68px rgba(255,255,255,.02);pointer-events:none}
-    .contact-primary,.contact-links{position:relative;z-index:1;padding:38px 42px}
-    .contact-primary{border-right:1px solid rgba(255,255,255,.13)}
-    .contact-kicker{display:inline-block;margin-bottom:12px;color:#ffbf8f;font-family:var(--label);font-size:.72rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase}
-    .contact-card h3{font-family:var(--display);font-size:1.4rem;font-weight:800;margin-bottom:14px}
-    .contact-card p{color:#ded9f4;line-height:1.75;margin:0}
-    .contact-links{display:flex;flex-direction:column;justify-content:center;gap:12px;background:rgba(255,255,255,.035)}
-    .contact-link{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-radius:13px;color:white!important;text-decoration:none;background:rgba(255,255,255,.055);transition:transform .18s ease,background .18s ease,border-color .18s ease}
-    .contact-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);border-color:rgba(196,184,255,.55)}
-    .contact-link small{display:block;color:#aaa2ce;font-family:var(--label);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
-    .contact-link strong{display:block;margin-top:3px;font-size:.96rem;font-weight:700}
-    .contact-link .arr{color:#c4b8ff;font-size:1.1rem}
-    .contact-email{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border:1px solid rgba(255,255,255,.14);border-radius:13px;background:rgba(255,255,255,.055)}
-    .contact-email small{display:block;color:#aaa2ce;font-family:var(--label);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
-    .contact-email a{display:block;margin-top:3px;color:#fff;text-decoration:none;font-size:.96rem;font-weight:700;overflow-wrap:anywhere}
-    .copy-btn{font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;margin-left:10px;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#e6e0ff;cursor:pointer;transition:background .18s ease,border-color .18s ease}
+    .contact-card h3,.contact-card p,.contact-card a,.contact-card .copy-btn{position:relative;z-index:1}
+    .contact-card h3{font-family:var(--display);font-size:1.25rem;font-weight:800}
+    .contact-card p{color:#ded9f4;line-height:1.75}
+    .contact-card a{color:#c4b8ff}    .copy-btn{font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;margin-left:10px;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#e6e0ff;cursor:pointer;transition:background .18s ease,border-color .18s ease}
     .copy-btn:hover{background:rgba(255,255,255,.12)}
     .copy-btn.done{border-color:#7ee2b8;color:#7ee2b8}
     footer{background:#120d2e;color:#c9c2e8;padding:44px 0 26px;font-size:.92rem;border-top:3px solid;border-image:var(--grad) 1}
@@ -342,9 +331,6 @@
       .feature{gap:28px}
       .footer-grid{grid-template-columns:1fr}
       .footer-social{padding-top:0}
-      .contact-card{grid-template-columns:1fr}
-      .contact-primary{border-right:0;border-bottom:1px solid rgba(255,255,255,.13)}
-      .contact-card:after{right:-150px}
       .journey:before,.jfill{left:11px;transform:none}
       .jitem,.jitem.right{width:auto;margin-left:44px}
       .jitem.left:before,.jitem.right:before{left:-40px;right:auto}
@@ -365,7 +351,7 @@
       .sec-num{font-size:2.4rem}
       .publication{grid-template-columns:1fr;gap:8px;padding:18px}
       .pub-link{justify-self:start}
-      .contact-primary,.contact-links{padding:26px 24px}
+      .contact-card{padding:26px 24px}
       .to-top{right:14px;bottom:14px}
     }
     @media(prefers-reduced-motion:reduce){
@@ -812,19 +798,9 @@
           <p>If you’d like to discuss research, ideas, or collaborations, feel free to reach out.</p>
         </div>
         <div class="contact-card">
-          <div class="contact-primary">
-            <span class="contact-kicker">Open to research conversations</span>
-            <h3>Dr. Anjali Thakran</h3>
-            <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
-          </div>
-          <div class="contact-links" aria-label="Contact links">
-            <div class="contact-email">
-              <div><small>Email</small><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a></div>
-              <button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button>
-            </div>
-            <a class="contact-link" href="https://linkedin.com/in/anjali1997"><span><small>Professional network</small><strong>LinkedIn Â· Anjali1997</strong></span><span class="arr" aria-hidden="true">â†—</span></a>
-            <a class="contact-link" href="https://github.com/Thakran27"><span><small>Code & projects</small><strong>GitHub Â· Thakran27</strong></span><span class="arr" aria-hidden="true">â†—</span></a>
-          </div>
+          <h3>Dr. Anjali Thakran</h3>
+          <p>Room 422, Research Center for Critical Issues<br>Academia Sinica<br>No. 100, Guiren 13 Road<br>Tainan City 711, Taiwan, R.O.C.</p>
+          <p><a href="mailto:anjalithakran83@gmail.com">anjalithakran83@gmail.com</a><button class="copy-btn" data-copy="anjalithakran83@gmail.com" aria-label="Copy email address">Copy</button><br><a href="https://linkedin.com/in/anjali1997">LinkedIn: Anjali1997</a><br><a href="https://github.com/Thakran27">GitHub: Thakran27</a></p>
         </div>
       </div>
     </section>
